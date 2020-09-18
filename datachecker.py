@@ -7,16 +7,31 @@ verbose = 1
 
 # Checks if a directory contains the correct number of .PNGs. 
 def png_checker(path, images_required):
-    images = len(glob.glob1(path,"*.png"))
+    images = len(glob.glob1(path,'*.png'))
     if images != images_required:
-        print(path + " is INVALID! Contains " + str(images) + " images instead of " + str(images_required) + " images.")
+        print(path + ' is INVALID! Contains ' + str(images) + ' images instead of ' + str(images_required) + ' images.')
     elif verbose:
-        print(path + " is COMPLETE.")
+        print(path + ' is COMPLETE.')
+# Checks if single directory datasets are complete. 
+def directory_checker(dataset, images):    
+    dataset_path = 'data/' + dataset
+    print('\nChecking ' + dataset + ' dataset...')
+    if path.exists(dataset_path):
+        png_checker(dataset_path, images)
+    else:
+        print(dataset + ' is MISSING!')
 
-# Check if DIV2K is a complete dataset with all of its subsets and images. 
-dataset = 'DIV2K'
-dataset_path = 'data/' + dataset
-print('Checking ' + dataset + ' dataset...')
+print('DATA CHECKER')
+
+# Check if BSDS100 is a complete dataset. 
+directory_checker('BSDS100', 100)
+
+# Check if BSDS200 is a complete dataset. 
+directory_checker('BSDS200', 200)
+
+# Check if DIV2K is a complete dataset. 
+print('\nChecking DIV2K dataset...')
+dataset_path = 'data/DIV2K'
 if path.exists(dataset_path):
     # Check if DIV2K contains all required low-resolution subsets.
     subsets_LR = ['DIV2K_train_LR_bicubic', 'DIV2K_train_LR_unknown', 'DIV2K_valid_LR_bicubic', 'DIV2K_valid_LR_unknown']
@@ -35,7 +50,7 @@ if path.exists(dataset_path):
                     else:
                         png_checker(scale_path, 100)
                 else:
-                    print(scale_path + " is MISSING!")
+                    print(scale_path + ' is MISSING!')
         else:
             print(subset_path + ' is MISSING!')
     # Check if DIV2K contains all required high-resolution subsets.
@@ -52,4 +67,24 @@ if path.exists(dataset_path):
         else:
             print(subset_path + ' is MISSING!')
 else:
-    print("DIV2K is a MISSING dataset")
+    print('DIV2K is MISSING!')
+
+# Check if General100 is a complete dataset. 
+directory_checker('General100', 100)
+
+# Check if historical is a complete dataset. 
+print('\nChecking historical dataset...')
+dataset_path = 'data/historical/LR'
+if path.exists(dataset_path):
+    png_checker(dataset_path, 10)
+else:
+    print(historical + ' is MISSING!')
+    
+# Check if manga109 is a complete dataset. 
+directory_checker('manga109', 109)    
+
+# Check if T91 is a complete dataset. 
+directory_checker('T91', 91)    
+
+# Check if urban100 is a complete dataset. 
+directory_checker('urban100', 100)   
