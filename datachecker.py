@@ -13,7 +13,7 @@ def png_checker(path, images_required):
 # Checks if single directory datasets are complete. 
 def directory_checker(dataset, images):    
     dataset_path = 'data/' + dataset
-    if verbose == 1: print('\nChecking ' + dataset + ' dataset...')
+    if verbose == 1: print('Checking ' + dataset + ' dataset...')
     if path.exists(dataset_path):
         png_checker(dataset_path, images)
     else:
@@ -26,7 +26,7 @@ if len(sys.argv) == 2:
     if sys.argv[1] == 'off':
         verbose = 0
 if verbose == 1: print('Run \'python datachecker.py off\' to only show failure messages.')
-if verbose == 0: print('Run \'python datachecker.py\' to show all messages. Empty output means all datasets are complete.')
+if verbose == 0: print('Run \'python datachecker.py\' to show all messages.\nEmpty output means all datasets are complete.')
 
 # Check if BSDS100 is a complete dataset. 
 directory_checker('BSDS100', 100)
@@ -35,7 +35,7 @@ directory_checker('BSDS100', 100)
 directory_checker('BSDS200', 200)
 
 # Check if DIV2K is a complete dataset. 
-if verbose == 1: print('\nChecking DIV2K dataset...')
+if verbose == 1: print('Checking DIV2K dataset...')
 dataset_path = 'data/DIV2K'
 if path.exists(dataset_path):
     # Check if DIV2K contains all required low-resolution subsets.
@@ -78,7 +78,7 @@ else:
 directory_checker('General100', 100)
 
 # Check if historical is a complete dataset. 
-if verbose == 1: print('\nChecking historical dataset...')
+if verbose == 1: print('Checking historical dataset...')
 dataset_path = 'data/historical/LR'
 if path.exists(dataset_path):
     png_checker(dataset_path, 10)
@@ -89,7 +89,7 @@ else:
 directory_checker('manga109', 109)    
 
 # Check if Set5 is a complete dataset. 
-if verbose == 1: print('\nChecking Set5 dataset...')
+if verbose == 1: print('Checking Set5 dataset...')
 dataset_path = 'data/Set5'
 if path.exists(dataset_path):
     # Check if DIV2K contains all required low-resolution subsets.
@@ -104,7 +104,7 @@ else:
     print('Set5 is MISSING!')
     
 # Check if Set14 is a complete dataset.
-if verbose == 1: print('\nChecking Set14 dataset...')
+if verbose == 1: print('Checking Set14 dataset...')
 dataset_path = 'data/Set14'
 if path.exists(dataset_path):
     # Check if DIV2K contains all required low-resolution subsets.
