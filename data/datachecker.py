@@ -1,40 +1,54 @@
 import os.path
 from os import path
 import glob
-from PIL import Image  
 
-# Verify that Set5 is present and complete. 
-#print("\nDATASET: Set5")
-errors = []
-if path.exists('Set5'):
-    valid_subsets = ['x2', 'x3', 'x4', 'x8']
-    # Verify that dataset has all of the required subsets.
-    for s in valid_subsets:
-        subset = 'Set5/' + s
-        if path.exists(subset):
-            # Verify that each subset has the correct number of images. 
-            invalid_images = len(glob.glob1(subset,"*.png")) - 5
-            if(invalid_images < 0):
-                errors.append(subset + " has " + str(-1 * invalid_images) + " missing images")
-            elif (invalid_images > 0):
-                errors.append(subset + " has " + str(invalid_images) + " extra images")
+# Set to 1 for success messages. 
+verbose = 1
+
+# Checks if a directory contains the correct number of .PNGs. 
+def png_checker(path, images_required):
+    images = len(glob.glob1(path,"*.png"))
+    if images != images_required:
+        print(path + " is INVALID! Contains " + str(images) + " images instead of " + str(images_required) + " images.")
+    elif verbose:
+        print(path + " is COMPLETE.")
+
+# Check if DIV2K is a complete dataset with all of its subsets and images. 
+dataset = 'DIV2K'
+print('Checking ' + dataset + ' dataset...')
+if path.exists(dataset):
+    # Check if DIV2K contains all required low-resolution subsets.
+    subsets_LR = ['DIV2K_train_LR_bicubic', 'DIV2K_train_LR_unknown', 'DIV2K_valid_LR_bicubic', 'DIV2K_valid_LR_unknown']
+    for subset in subsets_LR:
+        subset_path = dataset + '/' + subset
+        if path.exists(subset_path):
+            # Check if each subset contains all required scales. 
+            scales = ['X2', 'X3', 'X4']
+            for scale in scales:
+                scale_path = subset_path + '/' + scale
+                if path.exists(scale_path):
+                    # Check each scale contains the required number of images. 
+                    if scale_path.find('train') != -1:
+                        png_checker(scale_path, 800)
+                    # Valid datasets contain 100 images. 
+                    else:
+                        png_checker(scale_path, 100)
+                else:
+                    print(scale_path + " is MISSING!")
         else:
-            print(subset + " is a missing subset")
-    # Check if dataset contains extra directories. 
-    for s in [subset for subset in os.listdir('Set5') if subset not in valid_subsets]:
-        errors.append('Set5/' + s + " is an extra directory.")
+            print(subset_path + ' is MISSING!')
+    # Check if DIV2K contains all required high-resolution subsets.
+    subsets_HR = ['DIV2K_train_HR', 'DIV2K_valid_HR']
+    for subset in subsets_HR:
+        subset_path = dataset + '/' + subset
+        if path.exists(subset_path):
+            # Check if each subset contains the required number of images. 
+            if subset_path.find('train') != -1:
+                png_checker(subset_path, 800)
+            # Valid datasets contain 100 images. 
+            else:
+                png_checker(subset_path, 100)
+        else:
+            print(subset_path + 'is MISSING!')
 else:
-    errors.append("Set5 is a missing dataset")
-if errors == []:
-    errors.append("Set5 is a complete dataset.")
-    Image.open('Set5/x2/baby_LRBI_x2.png').show()
-else:
-    for error in errors:
-        print(error)
-
-# Verify that Set14 is present and complete.
-#print("\nDATASET: Set14")
-if path.exists('Set14'):
-    print("Placeholder")
-else:
-    print("Set14 is a missing dataset")
+    print("DIV2K is a MISSING dataset")
