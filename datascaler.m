@@ -1,33 +1,63 @@
-  
-function Prepare_TestData_HR_LR()
-clear all; close all; clc
-path_original = './data';
-dataset  = {'Urban100'};
-ext = {'*.jpg', '*.png', '*.bmp'};
+% Script based off of: 
+% https://github.com/daitao/SAN/blob/master/TestCode/Prepare_TestData_HR_LR.m  
 
+% Downscales all single-directory datasets.
+function scale_images()
+clear all; close all; clc
+
+% Datasets that will be downscaled
+dataset  = {'BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'T91', 'urban100'};
+% Chose image degradation method
 degradation = 'bic'; % bic, BD, DN
+
+% File path, image file extensions, scales.
+path_original = './data';
+ext = {'*.jpg', '*.png', '*.bmp'};
 if strcmp(degradation, 'bic') 
     scale_all = [2,3,4];
 else
     scale_all = [3,4];
 end
 
+% Move images from './data/historical/LR' to './data/historical/original'
+if exist('./data/historical/LR')
+    movefile('./data/historical/LR/*.png', './data/historical')
+    rmdir('./data/historical/LR/')
+end
+
+% Downscale all datasets
 for idx_set = 1:length(dataset)
     fprintf('Processing %s:\n', dataset{idx_set});
+    
+    % Create './data/<dataset>/original' directory
+    folder_dataset = fullfile(path_original, dataset{idx_set});
+    folder_original = fullfile(folder_dataset, 'original');
+    if ~exist(folder_original)
+        mkdir(folder_original)
+    end
+    % Move all images to './data/<dataset>/original'
+    movefile(fullfile(folder_dataset,'*.png'), folder_original)
+    
+    % Create list of all of the filepaths of the original images.
     filepaths = [];
     for idx_ext = 1:length(ext)
-        filepaths = cat(1, filepaths, dir(fullfile(path_original, dataset{idx_set}, ext{idx_ext})));
+        filepaths = cat(1, filepaths, dir(fullfile(folder_original, ext{idx_ext})));
     end
+    % Downscale the original images and write them to their scaled directories 
     for idx_im = 1:length(filepaths)
         name_im = filepaths(idx_im).name;
         fprintf('%d. %s: ', idx_im, name_im);
-        im_ori = imread(fullfile(path_original, dataset{idx_set}, name_im));
+        im_ori = imread(fullfile(folder_original, name_im));
         if size(im_ori, 3) == 1
             im_ori = cat(3, im_ori, im_ori, im_ori);
         end
         for scale = scale_all
             fprintf('x%d ', scale);
+            
+            % Crop original image for scaling. 
             im_HR = modcrop(im_ori, scale);
+            
+            % Apply chosen degradation method to image
             if strcmp(degradation, 'bic')
                 im_LR = imresize(im_HR, 1/scale, 'bicubic');
             elseif strcmp(degradation, 'BD')
@@ -36,27 +66,24 @@ for idx_set = 1:length(dataset)
                 randn('seed',0); % For test data, fix seed. But, DON'T fix seed, when preparing training data.
                 im_LR = imresize_DN(im_HR, scale, 30); % noise level sigma=30
             end
-            % folder
-            % folder_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)]);
-            folder_LR = fullfile('./data', dataset{idx_set}, ['LR', degradation, 'x', num2str(scale)]);
-            % folder_LR = fullfile(['./LR/LR', degradation], dataset{idx_set}, ['x', num2str(scale)]);
-            % if ~exist(folder_HR)
-            %     mkdir(folder_HR)
-            % end
+            
+            % Create './data/<dataset>/LR<degradation>x<scale>/'
+            folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
             if ~exist(folder_LR)
                 mkdir(folder_LR)
             end
-            % fn
-            % fn_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)], [name_im(1:end-4), '_HR_x', num2str(scale), '.png']);
-            fn_LR = fullfile('./data', dataset{idx_set}, ['LR', degradation, 'x', num2str(scale)], [name_im(1:end-4), '_LR', degradation, 'x', num2str(scale), '.png']);
-            % imwrite(im_HR, fn_HR, 'png');
+            % Write scaled image to directory.
+            fn_LR = fullfile(folder_LR, [name_im(1:end-4), '_LR', degradation, 'x', num2str(scale), '.png']);
             imwrite(im_LR, fn_LR, 'png');
         end
         fprintf('\n');
     end
     fprintf('\n');
 end
+fprintf('Finished.');
 end
+
+% Crops original HR image for downscaling.
 function imgs = modcrop(imgs, modulo)
 if size(imgs,3)==1
     sz = size(imgs);
@@ -70,9 +97,8 @@ else
 end
 end
 
-
+% Applies BD degradation model to image.
 function [LR] = imresize_BD(im, scale, type, sigma)
-
 if nargin ==3 && strcmp(type,'Gaussian')
     sigma = 1.6;
 end
@@ -91,8 +117,6 @@ if strcmp(type,'Gaussian') && fix(scale) == scale
         else
             LR      = imresize(blur_HR, 1/scale, 'nearest');
         end
-        
-        
         % LR      = im2uint8(LR);
     elseif mod(scale,2)==0
         kernelsize = ceil(sigma*3)*2+2;
@@ -106,6 +130,7 @@ else
 end
 end
 
+% Apply DN degradation model to image.
 function ImLR = imresize_DN(ImHR, scale, sigma)
 % ImLR and ImHR are uint8 data
 % downsample by Bicubic
