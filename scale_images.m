@@ -2,12 +2,12 @@
 function Prepare_TestData_HR_LR()
 clear all; close all; clc
 path_original = './data';
-dataset  = {'Set5','Set14','BSD100','Urban100','Manga109'};
+dataset  = {'Urban100'};
 ext = {'*.jpg', '*.png', '*.bmp'};
 
-degradation = 'DN'; % BI, BD, DN
-if strcmp(degradation, 'BI') 
-    scale_all = [2,3,4,8];
+degradation = 'bic'; % bic, BD, DN
+if strcmp(degradation, 'bic') 
+    scale_all = [2,3,4];
 else
     scale_all = [3,4];
 end
@@ -28,7 +28,7 @@ for idx_set = 1:length(dataset)
         for scale = scale_all
             fprintf('x%d ', scale);
             im_HR = modcrop(im_ori, scale);
-            if strcmp(degradation, 'BI')
+            if strcmp(degradation, 'bic')
                 im_LR = imresize(im_HR, 1/scale, 'bicubic');
             elseif strcmp(degradation, 'BD')
                 im_LR = imresize_BD(im_HR, scale, 'Gaussian', 1.6); % sigma=1.6
@@ -37,18 +37,19 @@ for idx_set = 1:length(dataset)
                 im_LR = imresize_DN(im_HR, scale, 30); % noise level sigma=30
             end
             % folder
-            folder_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)]);
-            folder_LR = fullfile(['./LR/LR', degradation], dataset{idx_set}, ['x', num2str(scale)]);
-            if ~exist(folder_HR)
-                mkdir(folder_HR)
-            end
+            % folder_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)]);
+            folder_LR = fullfile('./data', dataset{idx_set}, ['LR', degradation, 'x', num2str(scale)]);
+            % folder_LR = fullfile(['./LR/LR', degradation], dataset{idx_set}, ['x', num2str(scale)]);
+            % if ~exist(folder_HR)
+            %     mkdir(folder_HR)
+            % end
             if ~exist(folder_LR)
                 mkdir(folder_LR)
             end
             % fn
-            fn_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)], [name_im(1:end-4), '_HR_x', num2str(scale), '.png']);
-            fn_LR = fullfile(['./LR/LR', degradation], dataset{idx_set}, ['x', num2str(scale)], [name_im(1:end-4), '_LR', degradation, '_x', num2str(scale), '.png']);
-            imwrite(im_HR, fn_HR, 'png');
+            % fn_HR = fullfile('./HR', dataset{idx_set}, ['x', num2str(scale)], [name_im(1:end-4), '_HR_x', num2str(scale), '.png']);
+            fn_LR = fullfile('./data', dataset{idx_set}, ['LR', degradation, 'x', num2str(scale)], [name_im(1:end-4), '_LR', degradation, 'x', num2str(scale), '.png']);
+            % imwrite(im_HR, fn_HR, 'png');
             imwrite(im_LR, fn_LR, 'png');
         end
         fprintf('\n');
