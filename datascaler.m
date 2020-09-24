@@ -20,20 +20,25 @@ else
 end
 
 % Move images from './data/historical/LR' to './data/historical/original'
-movefile('./data/historical/LR/*.png', './data/historical')
-rmdir('./data/historical/LR/')
+
+if exist('./data/historical/LR')
+    movefile('./data/historical/LR/*.png', './data/historical')
+    rmdir('./data/historical/LR/')
+end
 
 
 % Downscale all datasets
 for idx_set = 1:length(dataset)
     fprintf('Processing %s:\n', dataset{idx_set});
     
-    % Create './data/<dataset>/original' directory
     folder_dataset = fullfile(path_original, dataset{idx_set});
     folder_original = fullfile(folder_dataset, 'original');
-    mkdir(folder_original)
-    % Move all images to './data/<dataset>/original'
-    movefile(fullfile(folder_dataset,'*.png'), folder_original)
+    % Create './data/<dataset>/original' directory
+    if ~exist(folder_original)
+        mkdir(folder_original)
+        % Move all images to './data/<dataset>/original'
+        movefile(fullfile(folder_dataset,'*.png'), folder_original)
+    end
     
     % Create list of all of the filepaths of the original images
     filepaths = [];
