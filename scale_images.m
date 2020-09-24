@@ -1,14 +1,15 @@
-function scale_images()
+  
+function Prepare_TestData_HR_LR()
 clear all; close all; clc
-path_original = './OriginalTestData';
-dataset  = {'Sun-Hays80'};
+path_original = './data';
+dataset  = {'Set5','Set14','BSD100','Urban100','Manga109'};
 ext = {'*.jpg', '*.png', '*.bmp'};
 
-degradation = 'BI'; % BI, BD, DN
+degradation = 'DN'; % BI, BD, DN
 if strcmp(degradation, 'BI') 
     scale_all = [2,3,4,8];
 else
-    scale_all = 3;
+    scale_all = [3,4];
 end
 
 for idx_set = 1:length(dataset)
