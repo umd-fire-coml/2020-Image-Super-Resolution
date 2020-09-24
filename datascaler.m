@@ -1,7 +1,7 @@
 % Script based off of: 
 % https://github.com/daitao/SAN/blob/master/TestCode/Prepare_TestData_HR_LR.m  
 
-% Downscales all single-directory datasets.
+% Downscales all single-directory datasets
 function scale_images()
 clear all; close all; clc
 
@@ -10,7 +10,7 @@ dataset  = {'BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'T91',
 % Chose image degradation method
 degradation = 'bic'; % bic, BD, DN
 
-% File path, image file extensions, scales.
+% File path, image file extensions, scales
 path_original = './data';
 ext = {'*.jpg', '*.png', '*.bmp'};
 if strcmp(degradation, 'bic') 
@@ -20,10 +20,9 @@ else
 end
 
 % Move images from './data/historical/LR' to './data/historical/original'
-if exist('./data/historical/LR')
-    movefile('./data/historical/LR/*.png', './data/historical')
-    rmdir('./data/historical/LR/')
-end
+movefile('./data/historical/LR/*.png', './data/historical')
+rmdir('./data/historical/LR/')
+
 
 % Downscale all datasets
 for idx_set = 1:length(dataset)
@@ -32,13 +31,11 @@ for idx_set = 1:length(dataset)
     % Create './data/<dataset>/original' directory
     folder_dataset = fullfile(path_original, dataset{idx_set});
     folder_original = fullfile(folder_dataset, 'original');
-    if ~exist(folder_original)
-        mkdir(folder_original)
-    end
+    mkdir(folder_original)
     % Move all images to './data/<dataset>/original'
     movefile(fullfile(folder_dataset,'*.png'), folder_original)
     
-    % Create list of all of the filepaths of the original images.
+    % Create list of all of the filepaths of the original images
     filepaths = [];
     for idx_ext = 1:length(ext)
         filepaths = cat(1, filepaths, dir(fullfile(folder_original, ext{idx_ext})));
@@ -83,7 +80,7 @@ end
 fprintf('Finished.');
 end
 
-% Crops original HR image for downscaling.
+% Crops original HR image for downscaling
 function imgs = modcrop(imgs, modulo)
 if size(imgs,3)==1
     sz = size(imgs);
@@ -97,7 +94,7 @@ else
 end
 end
 
-% Applies BD degradation model to image.
+% Applies BD degradation model to image
 function [LR] = imresize_BD(im, scale, type, sigma)
 if nargin ==3 && strcmp(type,'Gaussian')
     sigma = 1.6;
@@ -130,7 +127,7 @@ else
 end
 end
 
-% Apply DN degradation model to image.
+% Apply DN degradation model to image
 function ImLR = imresize_DN(ImHR, scale, sigma)
 % ImLR and ImHR are uint8 data
 % downsample by Bicubic
