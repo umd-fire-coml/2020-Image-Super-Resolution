@@ -1,0 +1,27 @@
+Classical SR training 
+# of images: 805
+Google Drive (link to the data set on google drive)
+2K resolution 
+# of images: a lot 
+Google Drive ( link to data set in google drive)
+Outdoor Scene dataset  (This one seems to be the most nicely structured for our    purposes)
+# of images: around 30,724
+Google Drive ( like to the data set on google drive)
+Make sure to read the README file inside of the google drive to understand what each section of the drive means.
+PRIM dataset
+# of images: 400 
+Google Drive
+A link to a short description of all 5 above with https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets
+DIV2K dataset
+Related to the 2K dataset
+Scroll down to data access
+https://data.vision.ee.ethz.ch/cvl/DIV2K/ (like for the websites to where you can download the datasets)
+Flickr1024 dataset
+# of images:
+ Google Drive (link for the dataset on google drive)
+https://yingqianwang.github.io/Flickr1024/ (link for the overall website)
+Two datasets for multi-sensor images
+https://www5.cs.fau.de/research/data/multi-sensor-super-resolution-datasets/
+First is an indoor scene with about 40 different consecutive frames of the first scene.
+The second one is 6 synthetic datasets where each dataset consists of 40 frames
+
