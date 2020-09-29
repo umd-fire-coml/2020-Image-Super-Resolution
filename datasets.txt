@@ -1,21 +1,32 @@
+Required section:
+
 Classical SR training 
 # of images: 805
 Google Drive (link to the data set on google drive)
-2K resolution 
-# of images: a lot 
-Google Drive ( link to data set in google drive)
-Outdoor Scene dataset  (This one seems to be the most nicely structured for our    purposes)
-# of images: around 30,724
-Google Drive ( like to the data set on google drive)
-Make sure to read the README file inside of the google drive to understand what each section of the drive means.
-PRIM dataset
-# of images: 400 
-Google Drive
-A link to a short description of all 5 above with https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets
+
 DIV2K dataset
 Related to the 2K dataset
 Scroll down to data access
 https://data.vision.ee.ethz.ch/cvl/DIV2K/ (like for the websites to where you can download the datasets)
+
+
+
+Extra section:
+
+2K resolution 
+# of images: a lot 
+Google Drive ( link to data set in google drive)
+
+Outdoor Scene dataset  (This one seems to be the most nicely structured for our    purposes)
+# of images: around 30,724
+Google Drive ( like to the data set on google drive)
+Make sure to read the README file inside of the google drive to understand what each section of the drive means.
+
+PRIM dataset
+# of images: 400 
+Google Drive
+A link to a short description of all 5 above with https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets
+
 Flickr1024 dataset
 # of images:
  Google Drive (link for the dataset on google drive)
@@ -24,4 +35,48 @@ Two datasets for multi-sensor images
 https://www5.cs.fau.de/research/data/multi-sensor-super-resolution-datasets/
 First is an indoor scene with about 40 different consecutive frames of the first scene.
 The second one is 6 synthetic datasets where each dataset consists of 40 frames
+
+
+File structure:
+
+data/
+BSDS100/
+BSDS200/
+DIV2K/
+DIV2K_train_HR/
+DIV2K_train_LR_bicubic/
+X2/
+X3/
+X4/
+DIV2K_train_LR_unknown/
+X2/
+X3/
+X4/
+DIV2K_valid_HR/
+DIV2K_valid_LR_bicubic/
+X2/
+X3/
+X4/
+DIV2K_valid_LR_unknown/
+X2/
+X3/
+X4/
+General100/
+historical/
+LR/
+manga109/
+Set5/
+GTmod12/
+LRbicx2/
+LRbicx3/
+LRbicx4/
+original/
+Set14/
+GTmod12/
+LRbicx2/
+LRbicx3/
+LRbicx4/
+original/
+T91/
+urban100/
 
