@@ -40,43 +40,43 @@ The second one is 6 synthetic datasets where each dataset consists of 40 frames
 File structure:
 
 data/
-BSDS100/
-BSDS200/
-DIV2K/
-DIV2K_train_HR/
-DIV2K_train_LR_bicubic/
-X2/
-X3/
-X4/
-DIV2K_train_LR_unknown/
-X2/
-X3/
-X4/
-DIV2K_valid_HR/
-DIV2K_valid_LR_bicubic/
-X2/
-X3/
-X4/
-DIV2K_valid_LR_unknown/
-X2/
-X3/
-X4/
-General100/
-historical/
-LR/
-manga109/
-Set5/
-GTmod12/
-LRbicx2/
-LRbicx3/
-LRbicx4/
-original/
-Set14/
-GTmod12/
-LRbicx2/
-LRbicx3/
-LRbicx4/
-original/
-T91/
-urban100/
+  BSDS100/
+  BSDS200/
+  DIV2K/
+    DIV2K_train_HR/
+    DIV2K_train_LR_bicubic/
+      X2/
+      X3/
+      X4/
+    DIV2K_train_LR_unknown/
+      X2/
+      X3/
+      X4/
+    DIV2K_valid_HR/
+    DIV2K_valid_LR_bicubic/
+      X2/
+      X3/
+      X4/
+    DIV2K_valid_LR_unknown/
+      X2/
+      X3/
+      X4/
+  General100/
+  historical/
+    LR/
+  manga109/
+  Set5/
+    GTmod12/
+    LRbicx2/
+    LRbicx3/
+    LRbicx4/
+    original/
+  Set14/
+    GTmod12/
+    LRbicx2/
+    LRbicx3/
+    LRbicx4/
+    original/
+  T91/
+  urban100/
 
