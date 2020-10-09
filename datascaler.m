@@ -75,7 +75,7 @@ for idx_set = 1:length(dataset)
                 mkdir(folder_LR)
             end
             % Write scaled image to directory.
-            fn_LR = fullfile(folder_LR, [name_im(1:end-4), '_LR', degradation, 'x', num2str(scale), '.png']);
+            fn_LR = fullfile(folder_LR, [name_im(1:end-4), '.png']);
             imwrite(im_LR, fn_LR, 'png');
         end
         fprintf('\n');
