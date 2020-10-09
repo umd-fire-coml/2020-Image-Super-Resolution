@@ -64,7 +64,7 @@ def adding_to_the_set2():
     elif(value == 3):
         dataset_path = dataset_800_X3[value] 
         inside_dataset = randint(1, 14)
-         dir_list = os.listdir(dataset_path) 
+        dir_list = os.listdir(dataset_path) 
         img = dir_list[inside_dataset]
         return img
     elif(value == 4):
@@ -209,7 +209,7 @@ if (ind == 4):
 
 
 os.mkdir('data/trainingdata')
-for x in range(0,num_size_training_set - 1)
+for x in range(0,num_size_training_set - 1):
     file_path = 'data/trainingdata/' + training_set[x]
 
 
