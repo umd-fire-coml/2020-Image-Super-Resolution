@@ -8,3 +8,4 @@ dependencies:
     - scikit-image
     - pillow=6.1
     - tensorflow=2.0
+    - opencv
