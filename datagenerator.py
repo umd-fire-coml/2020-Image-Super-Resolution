@@ -46,6 +46,15 @@ class DataGenerator:
         y = round(random.uniform(0, height-h))
         crop_img = img[y:y+h, x:x+w]
         return crop_img
+    def perform_rotate_custom(self, imgpath, angle):
+        if isinstance(imgpath, str):
+            img = cv2.imread(imgpath)
+        else:
+            img = imgpath
+        image_center = tuple(np.array(img.shape[1::-1]) / 2)
+        rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+        result = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
+        return result
 
 #Example on how to use this code:
 #import matplotlib.pyplot as plt
