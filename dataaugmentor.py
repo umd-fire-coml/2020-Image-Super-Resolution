@@ -2,7 +2,7 @@ import cv2
 import random
 
 # For the children functions, the image path or an image variable will suffice
-class DataGenerator:
+class DataAugmentor:
     # turns will be the number of clockwise 90 degree rotations
     def perform_rotate(self, imgpath, turns = 1):
         if isinstance(imgpath, str):
@@ -59,7 +59,7 @@ class DataGenerator:
 #Example on how to use this code:
 #import matplotlib.pyplot as plt
 # (import this code)
-#datagen = DataGenerator()
+#datagen = DataAugmentor()
 #resimg = datagen.perform_rotate("C:\\Users\\Jared Habermehl\\Documents\\2020-Image-Super-Resolution\\big_im_SR.png")
 #resimg = datagen.perform_flip(resimg)
 #plt.axis("off")
