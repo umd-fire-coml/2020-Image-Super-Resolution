@@ -5,14 +5,20 @@ import random
 class DataGenerator:
     # turns will be the number of clockwise 90 degree rotations
     def perform_rotate(self, imgpath, turns = 1):
-        img = cv2.imread(imgpath)
+        if isinstance(imgpath, str):
+            img = cv2.imread(imgpath)
+        else:
+            img = imgpath
         for i in range (0, turns):
             img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
         return img
     
     # By default will flip over the x-axis
     def perform_flip(self, imgpath, horizontally = False):
-        img = cv2.imread(imgpath)
+        if isinstance(imgpath, str):
+            img = cv2.imread(imgpath)
+        else:
+            img = imgpath
         if (horizontally):
             img = cv2.flip(img, 1)
         else:
@@ -21,7 +27,10 @@ class DataGenerator:
     
     # This will randomly crop a given image with certain width and height constraints. Negative maxvalues mean use whole image
     def perform_crop(self, imgpath, minwidth = 1, minheight = 1, maxwidth = -1, maxheight = -1):
-        img = cv2.imread(imgpath)
+        if isinstance(imgpath, str):
+            img = cv2.imread(imgpath)
+        else:
+            img = imgpath
         height, width, channels = img.shape
         if height < maxheight or maxheight < 1:
             maxheight = height
