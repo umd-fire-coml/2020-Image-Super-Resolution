@@ -19,10 +19,10 @@ classical_SR_datasets = {
 div2k_datasets = ['DIV2K_train_LR_bicubic_X2', 'DIV2K_train_LR_bicubic_X3', 'DIV2K_train_LR_bicubic_X4',
                   'DIV2K_train_LR_unknown_X2', 'DIV2K_train_LR_unknown_X3', 'DIV2K_train_LR_unknown_X4',
                   'DIV2K_valid_LR_bicubic_X2', 'DIV2K_valid_LR_bicubic_X3', 'DIV2K_valid_LR_bicubic_X4',
-                  'DIV2K_valid_LR_unknown_X2', 'DIV2K_valid_LR_unknown_X3', 'DIV2K_valid_LR_unknown_X4', 
-                  'DIV2K_train_HR', 'DIV2K_valid_HR']     
+                  'DIV2K_valid_LR_unknown_X2', 'DIV2K_valid_LR_unknown_X3', 'DIV2K_valid_LR_unknown_X4',
+                  'DIV2K_train_HR', 'DIV2K_valid_HR']
 
-# Downloads files from Google Drive. 
+# Downloads files from Google Drive.
 def download_google(id, destination):
     URL = 'https://docs.google.com/uc?export=download'
 
@@ -35,8 +35,8 @@ def download_google(id, destination):
         params = { 'id' : id, 'confirm' : token }
         response = session.get(URL, params = params, stream = True)
 
-    save_response_content(response, destination)    
-    
+    save_response_content(response, destination)
+
 # Gets token
 def get_confirm_token(response):
     for key, value in response.cookies.items():
@@ -53,21 +53,16 @@ def save_response_content(response, destination):
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
-                
+
 # Downloads files from url
 def download_url(url, save_path, chunk_size=128):
     r = requests.get(url, stream=True)
     with open(save_path, 'wb') as fd:
         for chunk in r.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
-            
-# Downloads files from url
-def download_url(url, save_path):
-    r = requests.get(url, stream=True)
-    with open(save_path, 'wb') as fd:
-        for chunk in r.iter_content():
-            fd.write(chunk)
-            
+
+print('DATA DOWNLOADER')
+
 # Make data directory
 if not os.path.isdir(data_directory):
     os.mkdir(data_directory)
@@ -79,7 +74,7 @@ for dataset in classical_SR_datasets:
         print(dataset_directory + ' already exists.')
     else:
         # Download .zip files from Google Drive
-        file_id = datasets[dataset]
+        file_id = classical_SR_datasets[dataset]
         zip_path = data_directory + '/' + dataset + '.zip'
         if not os.path.isfile(dataset + '.zip'):
             print("Downloading " + dataset + '.zip')
@@ -92,7 +87,7 @@ for dataset in classical_SR_datasets:
         print("Deleting " + dataset + '.zip')
         os.remove(zip_path)
     print()
-    
+
 # Make DIV2K directory
 div2k_directory = data_directory + '/' + 'DIV2K'
 if not os.path.isdir(div2k_directory):
@@ -116,7 +111,7 @@ for dataset in div2k_datasets:
         if not os.path.isfile(zip_path):
             url = 'http://data.vision.ee.ethz.ch/cvl/DIV2K/' + dataset + '.zip'
             print('Downloading ' + dataset + '.zip')
-            download_url(url, zip_path)
+            download_url(url, zip_path, 1048576)
         # Unzip .zip files
         print("Unzipping " + dataset + '.zip')
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
@@ -125,7 +120,8 @@ for dataset in div2k_datasets:
         print("Deleting " + dataset + '.zip')
         os.remove(zip_path)
     print()
-    
+
 # Run datachecker.py with no success messages.
-print("Finished!\n\nRunning datachecker.py. Empty output means no errors.\nErrors:") 
+print("Finished!\n\nRunning datachecker.py. Empty output means no errors.\nErrors:")
 datachecker.checker(verbose = 0)
+print('\nRun datascaler.m after fixing all errors.')
