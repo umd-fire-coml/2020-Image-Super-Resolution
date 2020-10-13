@@ -111,7 +111,7 @@ for dataset in div2k_datasets:
         if not os.path.isfile(zip_path):
             url = 'http://data.vision.ee.ethz.ch/cvl/DIV2K/' + dataset + '.zip'
             print('Downloading ' + dataset + '.zip')
-            download_url(url, zip_path, 1048576)
+            download_url(url, zip_path, 32768)
         # Unzip .zip files
         print("Unzipping " + dataset + '.zip')
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
