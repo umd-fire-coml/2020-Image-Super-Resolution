@@ -1,5 +1,5 @@
 import sys, glob
-from os import path  
+from os import path
 
 # Checks if a directory contains the correct number of .PNGs. 
 def png_checker(path, images_required, verbose):

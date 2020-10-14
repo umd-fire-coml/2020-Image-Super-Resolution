@@ -9,6 +9,8 @@ __pycache__/
 
 # C extensions
 *.so
+# MATLAB extensions
+*.asv
 
 # Distribution / packaging
 .Python
