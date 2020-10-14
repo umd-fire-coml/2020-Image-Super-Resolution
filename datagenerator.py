@@ -9,7 +9,7 @@ class DataGenerator:
         for i in range (0, turns):
             img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
         return img
-
+    
     # By default will flip over the x-axis
     def perform_flip(self, imgpath, horizontally = False):
         img = cv2.imread(imgpath)
@@ -18,7 +18,7 @@ class DataGenerator:
         else:
             img = cv2.flip(img, 0)
         return img
-
+    
     # This will randomly crop a given image with certain width and height constraints. Negative maxvalues mean use whole image
     def perform_crop(self, imgpath, minwidth = 1, minheight = 1, maxwidth = -1, maxheight = -1):
         img = cv2.imread(imgpath)
@@ -48,3 +48,4 @@ class DataGenerator:
 #plt.imshow(cv2.cvtColor(resimg, cv2.COLOR_BGR2RGB))
 #plt.show()
  
+    
