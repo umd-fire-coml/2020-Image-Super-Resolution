@@ -47,5 +47,3 @@ class DataGenerator:
 #plt.axis("off")
 #plt.imshow(cv2.cvtColor(resimg, cv2.COLOR_BGR2RGB))
 #plt.show()
- 
-    
