@@ -28,8 +28,8 @@ for dataset in datasets:
 # file_path = images[<image name>][<scale>]
 
 main_dir = 'data/DIV2K'
-Kscale = ['KX2', 'KX3', 'KX4']
-Uscale = ['UX2', 'UX3', 'UX4']
+Kscale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
+Uscale = ['LRunkx2', 'LRunkx3', 'LRunkx4']
 
 
 train_names = os.listdir(main_dir + '/' + 'DIV2K_train_HR')
@@ -40,67 +40,53 @@ for image_name in train_names:
     image_scales['original'] = main_dir + '/' + 'DIV2K_train_HR' + '/' + image_name
     for scale in Kscale:
         s = ''
-        sc =''
-        if(scale == 'KX2'):
+        if(scale == 'LRbicx2'):
             s = 'x2'
-            sc = 'LRbicx2'
-        elif(scale == 'KX3'):
+        elif(scale == 'LRbicx3'):
             s = 'x3'
-            sc = 'LRbicx3'
         else:
             s = 'x4'
-            sc = 'LRbicx4'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[sc] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + corr_name
     for scale in Uscale:
         s = ''
-        sc = '' 
-        if(scale == 'UX2'):
+       
+        if(scale == 'LRunkx2'):
             s = 'x2'
-            sc = 'LRunkx2'
-        elif(scale == 'UX3'):
+        elif(scale == 'LRunkx3'):
             s = 'x3'
-            sc = 'LRunkx2'
+           
         else:
             s = 'x4'
-            sc = 'LRunkx2'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[sc] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + corr_name
     images[image_name] = image_scales
 for image_name in valid_names:
     image_scales = {}
     image_scales['original'] = main_dir + '/' + 'DIV2K_valid_HR' + '/' + image_name
     for scale in Kscale:
         s = ''
-        sc = ''
-        if(scale == 'KX2'):
+        if(scale == 'LRbicx2'):
             s = 'x2'
-            sc = 'LRbicx2'
-        elif(scale == 'KX3'):
+        elif(scale == 'LRbicx3'):
             s = 'x3'
-            sc = 'LRbicx3'
         else:
             s = 'x4'
-            sc = 'LRbicx4'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[sc] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + corr_name
     for scale in Uscale:
         s = ''
-        sc = ''
-        if(scale == 'UX2'):
+        if(scale == 'LRunkx2'):
             s = 'x2'
-            sc = 'LRunkx2'
-        elif(scale == 'UX3'):
+        elif(scale == 'LRunkx3'):
             s = 'x3'
-            sc = 'LRunkx3'
         else:
             s = 'x4'
-            sc = 'LRunkx4'
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[sc] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + corr_name        
+        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + corr_name        
     images[image_name] = image_scales
 
 
