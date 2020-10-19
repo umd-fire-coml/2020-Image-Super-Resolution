@@ -40,53 +40,67 @@ for image_name in train_names:
     image_scales['original'] = main_dir + '/' + 'DIV2K_train_HR' + '/' + image_name
     for scale in Kscale:
         s = ''
+        sc = ''
         if(scale == 'LRbicx2'):
             s = 'x2'
+            sc = 'X2'
         elif(scale == 'LRbicx3'):
             s = 'x3'
+            sc = 'X3'
         else:
             s = 'x4'
+            sc = 'X4'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + sc + '/' + corr_name
     for scale in Uscale:
         s = ''
-       
+        sc = ''
         if(scale == 'LRunkx2'):
             s = 'x2'
+            sc = 'X2'
         elif(scale == 'LRunkx3'):
             s = 'x3'
-           
+            sc = 'X3'
         else:
             s = 'x4'
+            sc = 'X4'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + sc + '/' + corr_name
     images[image_name] = image_scales
 for image_name in valid_names:
     image_scales = {}
     image_scales['original'] = main_dir + '/' + 'DIV2K_valid_HR' + '/' + image_name
     for scale in Kscale:
         s = ''
+        sc = ''
         if(scale == 'LRbicx2'):
             s = 'x2'
+            sc = 'X2'
         elif(scale == 'LRbicx3'):
             s = 'x3'
+            sc = 'X3'
         else:
             s = 'x4'
+            sc = 'X4'
             
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + corr_name
+        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + sc + '/' + corr_name
     for scale in Uscale:
         s = ''
+        sc = ''
         if(scale == 'LRunkx2'):
             s = 'x2'
+            sc = 'X2'
         elif(scale == 'LRunkx3'):
             s = 'x3'
+            sc = 'X3'
         else:
             s = 'x4'
+            sc = 'X4'
         corr_name = image_name[:4] + s + image_name[4:]
-        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + corr_name        
+        image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + sc + '/' + corr_name        
     images[image_name] = image_scales
 
 
