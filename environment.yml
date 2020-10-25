@@ -9,3 +9,4 @@ dependencies:
     - pillow=6.1
     - tensorflow=2.0
     - opencv
+    - conda-forge::imgaug
