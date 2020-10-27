@@ -9,3 +9,8 @@ dependencies:
     - pillow=6.1
     - tensorflow=2.0
     - opencv
+<<<<<<< Updated upstream
+=======
+    - conda-forge::imgaug
+    - conda-forge::keras
+>>>>>>> Stashed changes
