@@ -1,217 +1,137 @@
-import sys
-import os.path
-from os import path
-import glob  
-import cv2
-import random
+class DataGenerator:
 
-num_size_training_set = 500
-training_set = [0 for x in range(num_size_training_set)]
+    #justins data processor
+    def data_processor(self):
+        import os 
+        data_directory = 'data/'
+        datasets = ['BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'Set5', 'Set14', 'T91', 'urban100']
+        scales = ['LRbicx2', 'LRbicx3', 'LRbicx4']
 
-dataset_800_X2 = {'data/DIV2K/DIV2K_train_LR_bicubic/X2', 'data/DIV2K/DIV2K_train_LR_unknown/X2', 'data/Set14/LRbicx2', 'data/Set5/LRbicx2'}
- 
-dataset_800_X3 = {'data/DIV2K/DIV2K_train_LR_bicubic/X3',  'data/DIV2K/DIV2K_train_LR_unknown/X3', 'data/Set14/LRbicx3', 'data/Set5/LRbicx3'}
- 
-dataset_800_X4 = {'data/DIV2K/DIV2K_train_LR_bicubic/X4',   'data/DIV2K/DIV2K_train_LR_unknown/X4','data/Set14/LRbicx4', 'data/Set5/LRbicx4'} 
- 
-dataset_all = {'data/General100', 'data/BSDS100', 'data/urban100', 'data/Set14/GTmod12', 'data/Set14/original', 'data/Set5/GTmod12', 'data/Set5/original', 
-                'data/BSDS200',  'data/manga109', 'data/T91','data/historical/LR', 'data/DIV2K/DIV2K_valid_HR'}
+        # key = image name without directory path
+        # value = dict of filepaths of original and scaled images
+        images = {}
+        # Build images dict for all classical SR images
+        for dataset in datasets:
+            dataset_directory = data_directory + dataset + '/'
+            # Get list of all image names
+            image_names = os.listdir(dataset_directory + 'original')
+            for image_name in image_names:
+                # image_scales dict for storing filepaths of original and scaled images
+                # key = scale
+                # value = filepath of image
+                image_scales = {}
+                # original filepath
+                image_scales['original'] = dataset_directory + 'original/' + image_name
+                # scaled filepaths
+                for scale in scales:
+                    image_scales[scale] = dataset_directory + scale + '/' + image_name
+                # image name points to dictionary of scales
+                images[image_name] = image_scales
 
+        # file_path = images[<image name>][<scale>]
 
-#goes through and finds an image of scale X2
-def adding_to_the_set1():
-    value = randint(1, 4) 
-    if(value == 1):
-        dataset_path = dataset_800_X2[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 2):
-        dataset_path = dataset_800_X2[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 3):
-        dataset_path = dataset_800_X2[value] 
-        inside_dataset = randint(1,14)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 4):
-        dataset_path = dataset_800_X2[value] 
-        inside_dataset = randint(1, 5)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
+        main_dir = 'data/DIV2K'
+        Kscale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
+        Uscale = ['LRunkx2', 'LRunkx3', 'LRunkx4']
 
-#goes through the datasets and finds an image of scale X3
-def adding_to_the_set2():
-    value = randint(1, 4) 
-    if(value == 1):
-        dataset_path = dataset_800_X3[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 2):
-        dataset_path = dataset_800_X3[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 3):
-        dataset_path = dataset_800_X3[value] 
-        inside_dataset = randint(1, 14)
-         dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 4):
-        dataset_path = dataset_800_X3[value] 
-        inside_dataset = randint(1, 5)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
+        train_names = os.listdir(main_dir + '/' + 'DIV2K_train_HR')
+        valid_names = os.listdir(main_dir + '/' + 'DIV2K_valid_HR')
 
-#goes through the datasets and finds an image of scale X4
-def adding_to_the_set3():
-    value = randint(1, 4) 
-    if(value == 1):
-        dataset_path = dataset_800_X4[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 2):
-        dataset_path = dataset_800_X4[value] 
-        inside_dataset = randint(1,800)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 3):
-        dataset_path = dataset_800_X4[value] 
-        inside_dataset = randint(1, 14)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 4):
-        dataset_path = dataset_800_X4[value] 
-        inside_dataset = randint(1, 5)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-
-#goes through the datasets and finds an image normally scaled
-def adding_to_the_set4():
-    value = randint(1, 12) 
-    if(value == 1):
-        dataset_path = dataset_800_X4[value] 
-        inside_dataset = randint(1,100)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 2):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1,100)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 3):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1,100)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 4):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1,14)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-
-    elif(value == 5):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 14)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-
-    elif(value == 6):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 5)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 7):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 5)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 8):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 200)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 9):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 109)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 10):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 91)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 11):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 10)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
-    elif(value == 12):
-        dataset_path = dataset_all[value] 
-        inside_dataset = randint(1, 100)
-        dir_list = os.listdir(dataset_path) 
-        img = dir_list[inside_dataset]
-        return img
+        for image_name in train_names:
+            image_scales = {}
+            image_scales['original'] = main_dir + '/' + 'DIV2K_train_HR' + '/' + image_name
+            for scale in Kscale:
+                s = ''
+                sc = ''
+                if(scale == 'LRbicx2'):
+                    s = 'x2'
+                    sc = 'X2'
+                elif(scale == 'LRbicx3'):
+                    s = 'x3'
+                    sc = 'X3'
+                else:
+                    s = 'x4'
+                    sc = 'X4'
+            
+                corr_name = image_name[:4] + s + image_name[4:]
+                image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + sc + '/' + corr_name
+            for scale in Uscale:
+                s = ''
+                sc = ''
+                if(scale == 'LRunkx2'):
+                    s = 'x2'
+                    sc = 'X2'
+                elif(scale == 'LRunkx3'):
+                 s = 'x3'
+                 sc = 'X3'
+                else:
+                 s = 'x4'
+                 sc = 'X4'
+            
+                corr_name = image_name[:4] + s + image_name[4:]
+                image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + sc + '/' + corr_name
+            images[image_name] = image_scales
+        for image_name in valid_names:
+            image_scales = {}
+            image_scales['original'] = main_dir + '/' + 'DIV2K_valid_HR' + '/' + image_name
+            for scale in Kscale:
+                s = ''
+                sc = ''
+                if(scale == 'LRbicx2'):
+                    s = 'x2'
+                    sc = 'X2'
+                elif(scale == 'LRbicx3'):
+                    s = 'x3'
+                    sc = 'X3'
+                else:
+                    s = 'x4'
+                    sc = 'X4'
+            
+                corr_name = image_name[:4] + s + image_name[4:]
+                image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + sc + '/' + corr_name
+            for scale in Uscale:
+                s = ''
+                sc = ''
+                if(scale == 'LRunkx2'):
+                    s = 'x2'
+                    sc = 'X2'
+                elif(scale == 'LRunkx3'):
+                    s = 'x3'
+                    sc = 'X3'
+                else:
+                    s = 'x4'
+                    sc = 'X4'
+                corr_name = image_name[:4] + s + image_name[4:]
+                image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + sc + '/' + corr_name        
+            images[image_name] = image_scales
+        return images
 
 
+    def generator(self, images, sample):
+        from random import sample
+        from IPython.display import Image, display
+        import random
 
+        #parameters
+        size = 500
+        scale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
 
+        #Randomly pick an image name
+        names = sample(images.keys().size)
+        #build a list of scale image filepaths
+        sample = []
+        imgs = []
+        for name in names:
+            sample.append(images[name][random.choice(scale)])
 
+        for image_path in sample:
+            imgs.append(image_path)
+            print(image_path)
+            display(Image(image_path))
 
-ind = randint(1,4)
-if (ind == 1):
-    while len(training_set) < num_size_training_set:
-        img = adding_to_the_set1()
-        if img not in training_set:
-            training_set.append(img)
-elif (ind == 2):
-    while len(training_set) < num_size_training_set:
-        img = adding_to_the_set2()
-        if img not in training_set:
-            training_set.append(img)
-elif (ind == 3):
-    while len(training_set) < num_size_training_set:
-        img = adding_to_the_set3()
-        if img not in training_set:
-            training_set.append(img)
-if (ind == 4):
-    while len(training_set) < num_size_training_set:
-        img = adding_to_the_set4()
-        if img not in training_set:
-            training_set.append(img)
+        return imgs
 
-
-os.mkdir('data/trainingdata')
-for x in range(0,num_size_training_set - 1)
-    file_path = 'data/trainingdata/' + training_set[x]
-
+    #jared can add this scaling part here how ever he would like
 
 
 
