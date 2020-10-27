@@ -1,3 +1,4 @@
+
 class DataGenerator:
 
     #justins data processor
@@ -132,9 +133,3 @@ class DataGenerator:
         return imgs
 
     #jared can add this scaling part here how ever he would like
-
-
-
-
-
-
