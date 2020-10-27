@@ -40,6 +40,21 @@ for idx_set = 1:length(dataset)
         movefile(fullfile(folder_dataset,'*.png'), folder_original)
     end
     
+    
+    for scale = scale_all
+        folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
+        % Create './data/<dataset>/LR<degradation>x<scale>/'
+        if ~exist(folder_LR)
+                mkdir(folder_LR)
+        % Delete obsolete images if they exist.
+        else
+            fprintf('Deleting obsolete images in %s\n', folder_LR);
+            delete(fullfile(folder_LR,'*'))
+        end
+    end
+        
+    
+    
     % Create list of all of the filepaths of the original images
     filepaths = [];
     for idx_ext = 1:length(ext)
@@ -68,14 +83,10 @@ for idx_set = 1:length(dataset)
                 randn('seed',0); % For test data, fix seed. But, DON'T fix seed, when preparing training data.
                 im_LR = imresize_DN(im_HR, scale, 30); % noise level sigma=30
             end
-            
-            % Create './data/<dataset>/LR<degradation>x<scale>/'
-            folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
-            if ~exist(folder_LR)
-                mkdir(folder_LR)
-            end
+                 
             % Write scaled image to directory.
-            fn_LR = fullfile(folder_LR, [name_im(1:end-4), '_LR', degradation, 'x', num2str(scale), '.png']);
+            folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
+            fn_LR = fullfile(folder_LR, [name_im(1:end-4), '.png']);
             imwrite(im_LR, fn_LR, 'png');
         end
         fprintf('\n');
