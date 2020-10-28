@@ -1,6 +1,6 @@
 import os 
 
-def training_dict(self):
+def training_dict():
     images = {}
     main_dir = 'data/DIV2K'
     Kscale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
@@ -79,7 +79,7 @@ def training_dict(self):
     return images
 
 
-def testing_dict(self):
+def testing_dict():
     data_directory = 'data/'
     datasets = ['BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'Set5', 'Set14', 'T91', 'urban100']
     scales = ['LRbicx2', 'LRbicx3', 'LRbicx4']
