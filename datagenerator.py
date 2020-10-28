@@ -1,135 +1,51 @@
+import numpy as np
+import keras
+import dictionary
 
-class DataGenerator:
+class DataGenerator(keras.utils.Sequence):
+    #list_IDs is the images 
+    def __init__(self, scale, batch_size= 5, shuffle=True):
+        'Initialization'
+        self.images = dictionary.training_dict()
+        self.scale = scale
+        self.list_IDs = list(self.images.keys())
+        self.batch_size = batch_size
+        self.shuffle = shuffle
+        self.on_epoch_end()
 
-    #justins data processor
-    def data_processor(self):
-        import os 
-        data_directory = 'data/'
-        datasets = ['BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'Set5', 'Set14', 'T91', 'urban100']
-        scales = ['LRbicx2', 'LRbicx3', 'LRbicx4']
+    def __len__(self):
+        'denotes the number of batches per epoch'
+        return int(np.floor(len(self.list_IDs) / self.batch_size))
 
-        # key = image name without directory path
-        # value = dict of filepaths of original and scaled images
-        images = {}
-        # Build images dict for all classical SR images
-        for dataset in datasets:
-            dataset_directory = data_directory + dataset + '/'
-            # Get list of all image names
-            image_names = os.listdir(dataset_directory + 'original')
-            for image_name in image_names:
-                # image_scales dict for storing filepaths of original and scaled images
-                # key = scale
-                # value = filepath of image
-                image_scales = {}
-                # original filepath
-                image_scales['original'] = dataset_directory + 'original/' + image_name
-                # scaled filepaths
-                for scale in scales:
-                    image_scales[scale] = dataset_directory + scale + '/' + image_name
-                # image name points to dictionary of scales
-                images[image_name] = image_scales
+    def __getitem__(self, index):
+        'Makes one batch of data'
+        indexes = self.indexes[index*self.batch_size: (index+1)*self.batch_size] 
 
-        # file_path = images[<image name>][<scale>]
+        list_IDs_temp = [self.list_Ids[k] for k in indexes] 
 
-        main_dir = 'data/DIV2K'
-        Kscale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
-        Uscale = ['LRunkx2', 'LRunkx3', 'LRunkx4']
+        # generate data
+        X = self.__data_generation(list_IDs_temp)
 
-        train_names = os.listdir(main_dir + '/' + 'DIV2K_train_HR')
-        valid_names = os.listdir(main_dir + '/' + 'DIV2K_valid_HR')
+        return X
 
-        for image_name in train_names:
-            image_scales = {}
-            image_scales['original'] = main_dir + '/' + 'DIV2K_train_HR' + '/' + image_name
-            for scale in Kscale:
-                s = ''
-                sc = ''
-                if(scale == 'LRbicx2'):
-                    s = 'x2'
-                    sc = 'X2'
-                elif(scale == 'LRbicx3'):
-                    s = 'x3'
-                    sc = 'X3'
-                else:
-                    s = 'x4'
-                    sc = 'X4'
+    def on_epoch_end(self):
+        'Updates indexes after each epoch'
+        self.indexes = np.arange(len(self.list_IDs))
+        if self.shuffle == True:
+            np.random.shuffle(self.indexes)
+
+    def __data_generation(self, list_IDs_temp):
+        'Generates data containing batch_size samples' 
+        # Initialization
+        LR = []
+        HR = []
+        # Generate data
+        for ID in list_IDs_temp:
+            low_res = keras.preprocessing.image.load_img(self.images[ID][self.scale])
+            high_res = keras.preprocessing.image.load_img(self.images[ID]['original'])
+            LR.append(np.asarray(low_res))
+            HR.append(np.asarray(high_res))
             
-                corr_name = image_name[:4] + s + image_name[4:]
-                image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_bicubic' + '/' + sc + '/' + corr_name
-            for scale in Uscale:
-                s = ''
-                sc = ''
-                if(scale == 'LRunkx2'):
-                    s = 'x2'
-                    sc = 'X2'
-                elif(scale == 'LRunkx3'):
-                 s = 'x3'
-                 sc = 'X3'
-                else:
-                 s = 'x4'
-                 sc = 'X4'
-            
-                corr_name = image_name[:4] + s + image_name[4:]
-                image_scales[scale] = main_dir + '/' + 'DIV2K_train_LR_unknown' + '/' + sc + '/' + corr_name
-            images[image_name] = image_scales
-        for image_name in valid_names:
-            image_scales = {}
-            image_scales['original'] = main_dir + '/' + 'DIV2K_valid_HR' + '/' + image_name
-            for scale in Kscale:
-                s = ''
-                sc = ''
-                if(scale == 'LRbicx2'):
-                    s = 'x2'
-                    sc = 'X2'
-                elif(scale == 'LRbicx3'):
-                    s = 'x3'
-                    sc = 'X3'
-                else:
-                    s = 'x4'
-                    sc = 'X4'
-            
-                corr_name = image_name[:4] + s + image_name[4:]
-                image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_bicubic' + '/' + sc + '/' + corr_name
-            for scale in Uscale:
-                s = ''
-                sc = ''
-                if(scale == 'LRunkx2'):
-                    s = 'x2'
-                    sc = 'X2'
-                elif(scale == 'LRunkx3'):
-                    s = 'x3'
-                    sc = 'X3'
-                else:
-                    s = 'x4'
-                    sc = 'X4'
-                corr_name = image_name[:4] + s + image_name[4:]
-                image_scales[scale] = main_dir + '/' + 'DIV2K_valid_LR_unknown' + '/' + sc + '/' + corr_name        
-            images[image_name] = image_scales
-        return images
+        return LR, HR 
 
-
-    def generator(self, images, sample):
-        from random import sample
-        from IPython.display import Image, display
-        import random
-
-        #parameters
-        size = 500
-        scale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
-
-        #Randomly pick an image name
-        names = sample(images.keys().size)
-        #build a list of scale image filepaths
-        sample = []
-        imgs = []
-        for name in names:
-            sample.append(images[name][random.choice(scale)])
-
-        for image_path in sample:
-            imgs.append(image_path)
-            print(image_path)
-            display(Image(image_path))
-
-        return imgs
-
-    #jared can add this scaling part here how ever he would like
+        return X
