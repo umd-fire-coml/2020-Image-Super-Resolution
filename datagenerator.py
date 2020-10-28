@@ -49,3 +49,13 @@ class DataGenerator(keras.utils.Sequence):
         return LR, HR 
 
         return X
+
+from PIL import Image
+import numpy as np
+
+gen = DataGenerator('LRbicx4', 1)
+LR, HR = gen.__getitem__(0)
+lr = Image.fromarray(LR[0], 'RGB')
+hr = Image.fromarray(HR[0], 'RGB')
+display(lr)
+display(hr)
