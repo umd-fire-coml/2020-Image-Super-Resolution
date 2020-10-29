@@ -11,7 +11,7 @@ The six convolutions are used to extract feature maps from the LR image and can 
 
 <img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W_1*I^{LR}+b_1)"/>
 
-<img src="https://latex.codecogs.com/gif.latex?f^2\left(I^{LR};W_{1:2},b_{1:2}\right)=\phi\left(W_2\ast f^1\left(I^{LR}\right)+b_2\right)"/>
+<img src="https://latex.codecogs.com/gif.latex?f^2(I^{LR};W_{1:2},b{1:2})=\phi(W_2*f^1(I^{LR})+b_2)"/>
 
 ## Efficient Sub-Pixel Convolutional Layer
 
