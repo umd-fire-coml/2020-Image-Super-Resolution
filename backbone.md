@@ -7,7 +7,7 @@ The LR input is mathematically represented by <img src="https://latex.codecogs.c
 ## Feature Maps Extraction
 In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image.
 
-<img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W+1*I^{LR}+b_1)"/>
+<img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W_1*I^{LR}+b_1)"/>
 ## Efficient Sub-Pixel Convolutional Layer
 
 ## Output
