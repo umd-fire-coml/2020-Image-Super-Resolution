@@ -3,7 +3,7 @@
 ## Input
 The model is trained using low-resolution (LR) images from the DIV2K dataset that were downscaled with bicubic degredation. datagenerator.py contains the DataGenerator class, which generates batches of LR and high-resolution (HR) image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
 
-The LR input is mathematically represented by <img src="https://latex.codecogs.com/gif.latex?I^{LR}"/>. <img src="https://latex.codecogs.com/gif.latex?r"/> is the scale that the HR image was downsampled by to generate the LR image; it is also known as the upscale factor because the model attempts to upscale the LR image back to its original resolution. 
+The LR input is mathematically represented by <img src="https://latex.codecogs.com/gif.latex?I^{LR}"/>. <img src="https://latex.codecogs.com/gif.latex?r"/> is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. 
 ## Feature Maps Extraction
 A six layer convolutional neural network is applied directly to 
 ### Convolutional Layer 1
