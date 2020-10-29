@@ -6,7 +6,8 @@ The model is trained using low-resolution (LR) images from the DIV2K dataset tha
 The LR input is mathematically represented by <img src="https://latex.codecogs.com/gif.latex?I^{LR}"/> and the HR image that it was downscaled from is <img src="https://latex.codecogs.com/gif.latex?I^{HR}"/>. <img src="https://latex.codecogs.com/gif.latex?r"/> is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. <img src="https://latex.codecogs.com/gif.latex?I^{LR}"/> and <img src="https://latex.codecogs.com/gif.latex?I^{HR}"/> can be represented as real-valued tensors of size <img src="https://latex.codecogs.com/gif.latex?H*W*C"/> and <img src="https://latex.codecogs.com/gif.latex?rH*rW*rC"/>, respectively, where <img src="https://latex.codecogs.com/gif.latex?C"/> is the number of color channels. 
 ## Feature Maps Extraction
 In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image.
-<img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\theta (W+1*I^{LR}+b_1)"/>
+
+<img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W+1*I^{LR}+b_1)"/>
 ## Efficient Sub-Pixel Convolutional Layer
 
 ## Output
