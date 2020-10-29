@@ -29,8 +29,6 @@ The six convolutions are used to extract feature maps from the LR image and can 
 
 Where ![equation](https://latex.codecogs.com/gif.latex?W_l,b_l,l\in(1,6)) are learnable network weights and biases respectively. ![equation](https://latex.codecogs.com/gif.latex?W_l) is a 2D convolution tensor of size ![equation](https://latex.codecogs.com/gif.latex?n_%7Bl-1%7D%20%5Ctimes%20n_l%20%5Ctimes%20k_l%20%5Ctimes%20k_l), where ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of features at layer ![equation](https://latex.codecogs.com/gif.latex?l), ![equation](https://latex.codecogs.com/gif.latex?n_0=C), and ![equation](https://latex.codecogs.com/gif.latex?k_l) is the filter size at layer ![equation](https://latex.codecogs.com/gif.latex?l). The nonlinearity function, or activation function, ![equation](https://latex.codecogs.com/gif.latex?\phi) is applied element-wise and is fixed.
 
-The hyperbolic tangent activation function (`activation = "tanh"`) is used as the fixed nonlinearity function in our implementation. 
-
 `TODO: Find (f1,n1), (f2,n2), etc.`
 `conv1 = layers.Conv2D(n1, f1, **params)(LR), conv2 = layers.Conv2D(n2, f2, **params)(conv1), etc.)`
 
@@ -41,7 +39,7 @@ The sub-pixel convolution layer that converts the LR feature maps to a HR image,
 
 Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffling operator that rearranges the elements of a ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C%20%5Cdot%20r%5E2) tensor to a tensor of shape ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C). Therefore, the convolution operator ![equation](https://latex.codecogs.com/gif.latex?W_7) has shape ![equation](https://latex.codecogs.com/gif.latex?n_6%20%5Ctimes%20r%5E2C%20%5Ctimes%20k_7%20%5Ctimes%20k_7). We do not apply nonlinearity to the outputs of this layer because it produces a HR image from the LR feature maps directly with one upscaling filter for each future map. Periodic shuffling can be avoided in training time if the training data is shuffled to match the output of the layer before ![equation](https://latex.codecogs.com/gif.latex?PS).
 
-We set `filters` to ![equation](https://latex.codecogs.com/gif.latex?r^2) and use `activation = "sigmoid"` in our implementation. `tf.nn.depth_to_space` is used on the result of the CNN with `block_size = r` to rearrange data from depth into blocks of spatial data. 
+We use `tf.nn.depth_to_space` with `block_size = r` to perform sub-pixel convolution in our implementation. 
 
 `TODO: Find f6.`
 
