@@ -23,7 +23,7 @@ The six convolutions are used to extract feature maps from the LR image and can 
 
 Where ![equation](https://latex.codecogs.com/gif.latex?W_l,b_l,l\in(1,7)) are learnable network weights and biases respectively. ![equation](https://latex.codecogs.com/gif.latex?W_l) is a 2D convolution tensor of size ![equation](https://latex.codecogs.com/gif.latex?n_%7Bl-1%7D%20%5Ctimes%20n_l%20%5Ctimes%20k_l%20%5Ctimes%20k_l), where ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of features at layer ![equation](https://latex.codecogs.com/gif.latex?l), ![equation](https://latex.codecogs.com/gif.latex?n_0=C), and ![equation](https://latex.codecogs.com/gif.latex?k_l) is the filter size at layer ![equation](https://latex.codecogs.com/gif.latex?l). The non-linearity function, or activation function, ![equation](https://latex.codecogs.com/gif.latex?\phi) is applied element-wise and is fixed.
 
-In this implementation, the hyperbolic tangent activation function (tensorflow.keras.layers: "tanh") is used as the fixed non-linearity function. 
+In this implementation, the hyperbolic tangent activation function ("tanh" in tensorflow.keras.layers) is used as the fixed non-linearity function. 
 
 ### Efficient Sub-Pixel Convolutional Layer
 
