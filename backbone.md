@@ -1,11 +1,11 @@
 # Image Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network (ESPCN)
 [Paper](https://arxiv.org/pdf/1609.05158.pdf)
 ## Input
-The model is trained using low-resolution (LR) images from the DIV2K dataset that were downscaled with bicubic degradation. datagenerator.py contains the `DataGenerator` class, which generates batches of LR and high-resolution (HR) image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
+The model is trained using low-resolution (LR) images from the DIV2K dataset that were downscaled with bicubic degradation. `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and high-resolution (HR) image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
 
 The LR input is mathematically represented by ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and the HR image that it was downscaled from is ![equation](https://latex.codecogs.com/gif.latex?I^{HR}). ![equation](https://latex.codecogs.com/gif.latex?r) is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and ![equation](https://latex.codecogs.com/gif.latex?I^{HR}) can be represented as real-valued tensors of size ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C) and ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C), respectively, where ![equation](https://latex.codecogs.com/gif.latex?H) is the height of the LR image, ![equation](https://latex.codecogs.com/gif.latex?W) is the width of the LR image, and ![equation](https://latex.codecogs.com/gif.latex?C) is the number of color channels. 
 ## Convolutional Neural Network
-In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce the SR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
+In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
 In this project, convolutional layers are implemented sequentially using `tensorflow.keras.layers.Conv2D`.
 ### Feature Maps Extraction
 The six convolutions are used to extract feature maps from the LR image and can be described as follows: 
@@ -30,6 +30,9 @@ The hyperbolic tangent activation function (`activation = "tanh"`) is used as th
 `conv1 = layers.Conv2D(n1, f1, **params)(LR), conv2 = layers.Conv2D(n2, f2, **params)(conv1), etc.)`
 
 ### Efficient Sub-Pixel Convolutional Layer
+The sub-pixel convolution layer that converts the LR feature maps to a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}), can be described as follows:
+
+![equation](https://latex.codecogs.com/gif.latex?I%5E%7BSR%7D%3Df%5E7%5Cleft%28I%5E%7BLR%7D%5Cright%29%3DPS%5Cleft%28W_7%5Cast%20f%5E6%5Cleft%28I%5E%7BLR%7D%5Cright%29+b_7%5Cright%29)
 
 ## Output
 The output is a super-resolution (SR) image that is compared to the HR image in testing. 
