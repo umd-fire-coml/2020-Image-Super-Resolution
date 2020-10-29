@@ -21,6 +21,8 @@ The six convolutions are used to extract feature maps from the LR image and can 
 
 <img src="https://latex.codecogs.com/gif.latex?f^6(I^{LR};W_{1:6},b_{1:6})=\phi(W_6*f^5(I^{LR})+b_6)"/>
 
+Where <img src="https://latex.codecogs.com/gif.latex?W_l,b_l,l\in(1,7)"/> are learnable netwrok weights and biases respectively. <img src="https://latex.codecogs.com/gif.latex?W_l"/> is a 2D convolution tensor of size <img src="https://latex.codecogs.com/gif.latex?n_{l-1}*n_l*k_l*k_l"/>, where <img src="https://latex.codecogs.com/gif.latex?n_l"/> is the number of features at layer <img src="l"/>, <img src="https://latex.codecogs.com/gif.latex?n_0=C"/>, and <img src="https://latex.codecogs.com/gif.latex?k_l"/> is the filter size at layer <img src="https://latex.codecogs.com/gif.latex?l"/>. The activation function <img src="https://latex.codecogs.com/gif.latex?\phi"/> is applied element-wise and is fixed.
+
 ## Efficient Sub-Pixel Convolutional Layer
 
 ## Output
