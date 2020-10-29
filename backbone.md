@@ -9,7 +9,7 @@ This project is based on [Real-Time Single Image and Video Super-Resolution Usin
 The model is trained using low resolution images from the DIV2K dataset that were downscaled with bicubic degradation. `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and HR image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
 
 The LR input is mathematically represented by ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and the HR image that it was downscaled from is ![equation](https://latex.codecogs.com/gif.latex?I^{HR}). ![equation](https://latex.codecogs.com/gif.latex?r) is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and ![equation](https://latex.codecogs.com/gif.latex?I^{HR}) can be represented as real-valued tensors of size ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C) and ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C), respectively, where ![equation](https://latex.codecogs.com/gif.latex?H) is the height of the LR image, ![equation](https://latex.codecogs.com/gif.latex?W) is the width of the LR image, and ![equation](https://latex.codecogs.com/gif.latex?C) is the number of color channels. 
-## Convolutional Neural Network
+## Method
 In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
 In this project, convolutional layers are implemented sequentially using `tensorflow.keras.layers.Conv2D`.
 ### Feature Maps Extraction
@@ -41,8 +41,7 @@ The sub-pixel convolution layer that converts the LR feature maps to a HR image,
 
 Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffling operator that rearranges the elements of a ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C%20%5Cdot%20r%5E2) tensor to a tensor of shape ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C). Therefore, the convolution operator ![equation](https://latex.codecogs.com/gif.latex?W_7) has shape ![equation](https://latex.codecogs.com/gif.latex?n_6%20%5Ctimes%20r%5E2C%20%5Ctimes%20k_7%20%5Ctimes%20k_7). We do not apply nonlinearity to the outputs of this layer because it produces a HR image from the LR feature maps directly with one upscaling filter for each future map. Periodic shuffling can be avoided in training time if the training data is shuffled to match the output of the layer before ![equation](https://latex.codecogs.com/gif.latex?PS).
 
-We set `filters` to ![equation](https://latex.codecogs.com/gif.latex?r^2) and use `activation = "sigmoid"` in our implementation.
+We set `filters` to ![equation](https://latex.codecogs.com/gif.latex?r^2) and use `activation = "sigmoid"` in our implementation. `tf.nn.depth_to_space` is used on the result of the CNN with `block_size = r` to rearrange data from depth into blocks of spatial data. 
 
 `TODO: Find f6.`
-## Output
-`tf.nn.depth_to_space` is used on the result of the CNN with `block_size = r` to convert the data to the output image.
+
