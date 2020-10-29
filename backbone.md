@@ -1,4 +1,5 @@
 # Image Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network (ESPCN)
+![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
 [Paper](https://arxiv.org/pdf/1609.05158.pdf)
 ## Input
 The model is trained using low-resolution (LR) images from the DIV2K dataset that were downscaled with bicubic degradation. `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and high-resolution (HR) image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
