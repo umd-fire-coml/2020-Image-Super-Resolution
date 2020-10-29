@@ -5,7 +5,8 @@ The model is trained using low-resolution (LR) images from the DIV2K dataset tha
 
 The LR input is mathematically represented by ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and the HR image that it was downscaled from is ![equation](https://latex.codecogs.com/gif.latex?I^{HR}). ![equation](https://latex.codecogs.com/gif.latex?r) is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and ![equation](https://latex.codecogs.com/gif.latex?I^{HR}) can be represented as real-valued tensors of size ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C) and ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C), respectively, where ![equation](https://latex.codecogs.com/gif.latex?H) is the height of the LR image, ![equation](https://latex.codecogs.com/gif.latex?W) is the width of the LR image, and ![equation](https://latex.codecogs.com/gif.latex?C) is the number of color channels. 
 ## Convolutional Neural Network
-In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce the SR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}).
+In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce the SR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
+In this project, convolutional layers are implemented sequentially using `tensorflow.keras.layers.Conv2D`.
 ### Feature Maps Extraction
 The six convolutions are used to extract feature maps from the LR image and can be described as follows: 
 
@@ -23,7 +24,10 @@ The six convolutions are used to extract feature maps from the LR image and can 
 
 Where ![equation](https://latex.codecogs.com/gif.latex?W_l,b_l,l\in(1,7)) are learnable network weights and biases respectively. ![equation](https://latex.codecogs.com/gif.latex?W_l) is a 2D convolution tensor of size ![equation](https://latex.codecogs.com/gif.latex?n_%7Bl-1%7D%20%5Ctimes%20n_l%20%5Ctimes%20k_l%20%5Ctimes%20k_l), where ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of features at layer ![equation](https://latex.codecogs.com/gif.latex?l), ![equation](https://latex.codecogs.com/gif.latex?n_0=C), and ![equation](https://latex.codecogs.com/gif.latex?k_l) is the filter size at layer ![equation](https://latex.codecogs.com/gif.latex?l). The non-linearity function, or activation function, ![equation](https://latex.codecogs.com/gif.latex?\phi) is applied element-wise and is fixed.
 
-In this project, the convolutional layers are implemented with `tensorflow.keras.layers.Conv2D`. The hyperbolic tangent activation function (`activation = "tanh"`) is used as the fixed non-linearity function. 
+The hyperbolic tangent activation function (`activation = "tanh"`) is used as the fixed non-linearity function in our implementation. 
+
+`TODO: Find (f1,n1), (f2,n2), etc.`
+`conv1 = layers.Conv2D(n1, f1, **params)(LR), conv2 = layers.Conv2D(n2, f2, **params)(conv1), etc.)`
 
 ### Efficient Sub-Pixel Convolutional Layer
 
