@@ -5,7 +5,7 @@ The model is trained using low-resolution (LR) images from the DIV2K dataset tha
 ## Feature Maps Extraction
 A six layer convolutional neural network is applied directly to the LR image input. 
 ### Convolutional Layer 1
-
+$f^1(I^{LR};W_1,b_1)=\theta (W+1*I^{LR}+b_1)$
 ## Efficient Sub-Pixel Convolutional Layer
 
 ## Output
