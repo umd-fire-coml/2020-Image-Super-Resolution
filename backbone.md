@@ -45,4 +45,4 @@ We set `filters` to ![equation](https://latex.codecogs.com/gif.latex?r^2) and us
 
 `TODO: Find f6.`
 ## Output
-`tf.nn.depth_to_space` is used on the seventh layer with `block_size = r` to convert the final convolution to the output image.
+`tf.nn.depth_to_space` is used on the result of the CNN with `block_size = r` to convert the data to the output image.
