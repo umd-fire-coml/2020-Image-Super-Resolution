@@ -9,6 +9,8 @@ In our architecture, a seven layer convolutional neural network is applied direc
 ### Feature Map Extraction
 The six convolutions are used to extract feature maps from the LR image and can be described as follows: 
 
+![equation](https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W_1*I^{LR}+b_1))
+
 <img src="https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W_1*I^{LR}+b_1)"/>
 
 <img src="https://latex.codecogs.com/gif.latex?f^2(I^{LR};W_{1:2},b_{1:2})=\phi(W_2*f^1(I^{LR})+b_2)"/>
