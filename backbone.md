@@ -3,6 +3,8 @@
 ## Input
 The model is trained using low-resolution (LR) images from the DIV2K dataset that were downscaled with bicubic degredation. datagenerator.py contains the DataGenerator class, which generates batches of LR and high-resolution (HR) image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
 ## Feature Maps Extraction
+A six layer convolutional neural network is applied directly to the LR image input. 
+### Convolutional Layer 1
 
 ## Efficient Sub-Pixel Convolutional Layer
 
