@@ -68,4 +68,4 @@ There is no strict requirement regarding the number of filters and the kernel si
 
 The sub-pixel convolution layer is implemented using `tf.nn.depth_to_space`. `depth_to_space` rearranges data from depth, collected by the convolutional layers during feature maps extraction, into blocks of spatial data, the output image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}), as a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input by the upscale ratio. 
 
-At the end, the model is compiled as a `keras.Model` that takes LR image tensors from `DataGenerator` as input, applies the ESPCN SISR model, then outputs the HR image tensors. 
+At the end, the model is compiled as a `keras.Model` that takes LR image tensors from `DataGenerator` as input, applies the ESPCN SISR model, then outputs HR image tensors. 
