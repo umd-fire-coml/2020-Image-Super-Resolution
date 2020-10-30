@@ -45,7 +45,7 @@ The following is a TensorFlow implementation of the 7-layer ESPCN model.
 # Upscale Factor
 r = 3
 # Arguments for Convolutional Layers
-args = {
+conv_args = {
   "activation": "relu",
   "padding" : "same",
 }
@@ -53,17 +53,19 @@ args = {
 # Input
 inputs = keras.Input(shape=(None, None, 1))
 # Feature Maps Extraction
-conv1 = layers.Conv2D(64, 5, activation="tanh", padding="same")(inputs)
-conv2 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv1)
-conv3 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv2)
-conv4 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv3)
-conv5 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv4)
-conv6 = layers.Conv2D((r*r), 3, activation="sigmoid", padding="same")(conv5)
+conv1 = layers.Conv2D(64, 5, **conv_args)(inputs)
+conv2 = layers.Conv2D(32, 3, **conv_args)(conv1)
+conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
+conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
+conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
+conv6 = layers.Conv2D((r*r), 3, **conv_args)(conv5)
 # Efficient Subpixel Convolutional Layer
 outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
 
 model = Model(inputs=inputs, outputs=outputs)
 ```
-The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 LR images that were downsampled using bicubic and unknown degradation, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice. `relu` is used as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) in all of the convolutions.
+The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice. 
 
-The sub-pixel convolution layer is performed using `tf.nn.depth_to_space` with `block_size = r`. `depth_to_space` rearranges data from depth, collected by the convolutional layers in the feature maps extraction process, into blocks of spatial data, the output SR image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}) in the form of a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input image by the chosen upscale factor. 
+`relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for the convolutional layers to optimize performance. Using `tanh` or another nonlinearity function is also acceptable. 
+
+The sub-pixel convolution layer is performed using `tf.nn.depth_to_space` with `block_size = r`. `depth_to_space` rearranges data from depth, collected by the convolutional layers in the feature maps extraction process, into blocks of spatial data, the output SR image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}) in the form of a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input image by the upscale factor. 
