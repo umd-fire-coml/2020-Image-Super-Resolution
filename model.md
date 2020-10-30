@@ -65,4 +65,6 @@ The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is repres
 
 `relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for the convolutional layers to optimize performance. Using `tanh` or another nonlinearity function is also acceptable. 
 
+We set ![equation](https://latex.codecogs.com/gif.latex?l=6), (https://latex.codecogs.com/gif.latex?(f_1,n_1)=(5,64))
+
 The sub-pixel convolution layer is implemented using `tf.nn.depth_to_space`. `depth_to_space` rearranges data from depth, collected by the convolutional layers during feature maps extraction, into blocks of spatial data: the output image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}) as a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input by the upscale factor. 
