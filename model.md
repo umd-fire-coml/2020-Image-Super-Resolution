@@ -59,7 +59,7 @@ conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
 conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
 conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
 conv6 = layers.Conv2D((r*r), 3, **conv_args)(conv5)
-# Efficient Subpixel Convolutional Layer
+# Efficient Sub-Pixel Convolutional Layer
 outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
 
 model = Model(inputs=inputs, outputs=outputs)
