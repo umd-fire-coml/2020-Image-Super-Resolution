@@ -67,4 +67,4 @@ Our model has six feature map extraction layers that are implemented using `tens
 
 The sub-pixel convolution layer is implemented using `tf.nn.depth_to_space`. `depth_to_space` rearranges data from depth, collected by the convolutional layers during feature maps extraction, into blocks of spatial data: the output image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}) as a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input by the upscale factor. 
 
-At the end, the model is compiled as a `keras.Model`. It takes a LR images in the form of numpy arrays from the `DataGenerator` as input, applies the ESPCN super-resolution process on them, then outputs the HR images as tensors. 
+At the end, the model is compiled as a `keras.Model`. It takes LR images in the form of numpy arrays from the `DataGenerator` as input, applies the ESPCN super-resolution process on them, then outputs the HR images as tensors. 
