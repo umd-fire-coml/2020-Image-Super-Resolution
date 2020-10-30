@@ -26,7 +26,7 @@ The six convolutional layers that are used to extract feature maps from the LR i
 
 Where ![equation](https://latex.codecogs.com/gif.latex?W_l,b_l,l\in(1,6)) are learnable network weights and biases, respectively. ![equation](https://latex.codecogs.com/gif.latex?W_l) is a 2D convolution tensor of size ![equation](https://latex.codecogs.com/gif.latex?n_%7Bl-1%7D%20%5Ctimes%20n_l%20%5Ctimes%20k_l%20%5Ctimes%20k_l), where ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of features at layer ![equation](https://latex.codecogs.com/gif.latex?l), ![equation](https://latex.codecogs.com/gif.latex?n_0=C), and ![equation](https://latex.codecogs.com/gif.latex?k_l) is the filter size at layer ![equation](https://latex.codecogs.com/gif.latex?l). The biases ![equation](https://latex.codecogs.com/gif.latex?b_l) are vectors of length ![equation](https://latex.codecogs.com/gif.latex?n_l). The nonlinearity function, or activation function, ![equation](https://latex.codecogs.com/gif.latex?\phi) is applied element-wise and is fixed.
 
-### Efficient Sub-Pixel Convolutional Layer
+### Efficient Sub-Pixel Convolutional Layer and Output
 The sub-pixel convolution layer that converts the LR feature maps to a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}), can be described as follows:
 
 ![equation](https://latex.codecogs.com/gif.latex?I%5E%7BSR%7D%3Df%5E7%5Cleft%28I%5E%7BLR%7D%5Cright%29%3DPS%5Cleft%28W_7%5Cast%20f%5E6%5Cleft%28I%5E%7BLR%7D%5Cright%29+b_7%5Cright%29)
