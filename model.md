@@ -57,9 +57,9 @@ conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
 conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
 conv6 = layers.Conv2D((r*r), 3, **conv_args)(conv5)
 # Efficient Sub-Pixel Convolutional Layer
-outputs = tf.nn.depth_to_space(conv6, r, data_format='NHWC')
+outputs = tf.nn.depth_to_space(conv6, r)
 
-model = Model(inputs=inputs, outputs=outputs)
+model = Model(inputs, outputs)
 ```
 The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice.
 
