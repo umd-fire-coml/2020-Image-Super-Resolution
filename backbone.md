@@ -43,9 +43,10 @@ We use `tf.nn.depth_to_space` with `block_size = r` on the feature maps to perfo
 
 ## Implementation
 ```
-#Upscale Factor
+# Upscale Factor
 r = 3
 
+# Input
 inputs = keras.Input(shape=(None, None, 1))
 # Feature Maps Extraction
 conv1 = layers.Conv2D(64, 5, activation="tanh", padding="same")(inputs)
@@ -56,5 +57,6 @@ conv5 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv4)
 conv6 = layers.Conv2D((r*r), 3, activation="sigmoid", padding="same")(conv5)
 # Efficient Subpixel Convolutional Layer
 outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
+
 model = Model(inputs=inputs, outputs=outputs)
 ```
