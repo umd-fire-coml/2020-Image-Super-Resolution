@@ -41,27 +41,29 @@ The following is a Keras implementation of the 7-layer ESPCN model.
 ```
 # Upscale Factor
 r = 3
-# Arguments for Convolutional Layers
+# Color Channels
+channels = 1
+# Arguments for Conv2D
 conv_args = {
   "activation": "relu",
   "padding" : "same",
 }
 
 # Input
-inputs = keras.Input(shape=(None, None, 1))
+inputs = keras.Input(shape=(None, None, channels))
 # Feature Maps Extraction
 conv1 = layers.Conv2D(64, 5, **conv_args)(inputs)
 conv2 = layers.Conv2D(64, 3, **conv_args)(conv1)
 conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
 conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
 conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
-conv6 = layers.Conv2D((r*r), 3, **conv_args)(conv5)
+conv6 = layers.Conv2D(channels*(r*r), 3, **conv_args)(conv5)
 # Efficient Sub-Pixel Convolutional Layer
 outputs = tf.nn.depth_to_space(conv6, r)
 
 model = Model(inputs, outputs)
 ```
-The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice.
+The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice. `channels` is ![equation](https://latex.codecogs.com/gif.latex?C), the number of color channels that the input images have. 
 
 Our model has six feature map extraction layers that are implemented using `tensorflow.keras.layers.Conv2D`. `relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for its performance; using another nonlinearity function, such as `tanh`, is acceptable. We set ![equation](https://latex.codecogs.com/gif.latex?(f_1,n_1)=(5,64)), ![equation](https://latex.codecogs.com/gif.latex?(f_2,n_2)=(3,64)), ![equation](https://latex.codecogs.com/gif.latex?(f_3,n_3)=(3,32)), ![equation](https://latex.codecogs.com/gif.latex?(f_4,n_4)=(3,32)), ![equation](https://latex.codecogs.com/gif.latex?(f_5,n_5)=(3,32)), and ![equation](https://latex.codecogs.com/gif.latex?(f_6,n_6)=(3,r^2)) in our evaluations, where ![equation](https://latex.codecogs.com/gif.latex?f_l) is the `kernel_size` and ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of `filters` at layer ![equation](https://latex.codecogs.com/gif.latex?l). The number of filters in layers 2 through 5 can be tuned for performance.
 
