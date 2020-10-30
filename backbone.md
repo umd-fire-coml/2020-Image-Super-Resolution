@@ -40,3 +40,19 @@ The sub-pixel convolution layer that converts the LR feature maps to a HR image,
 Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffling operator that rearranges the elements of a ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C%20%5Cdot%20r%5E2) tensor to a tensor of shape ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C). Therefore, the convolution operator ![equation](https://latex.codecogs.com/gif.latex?W_7) has shape ![equation](https://latex.codecogs.com/gif.latex?n_6%20%5Ctimes%20r%5E2C%20%5Ctimes%20k_7%20%5Ctimes%20k_7). We do not apply nonlinearity to the outputs of this layer because it produces a HR image from the LR feature maps directly with one upscaling filter for each future map. Periodic shuffling can be avoided in training time if the training data is shuffled to match the output of the layer before ![equation](https://latex.codecogs.com/gif.latex?PS).
 
 We use `tf.nn.depth_to_space` with `block_size = r` on the feature maps to perform sub-pixel convolution in our implementation. 
+
+## Implementation
+` #Upscale Factor
+r = 3
+
+inputs = keras.Input(shape=(None, None, 1))
+# Feature Maps Extraction
+conv1 = layers.Conv2D(64, 5, activation="tanh", padding="same")(inputs)
+conv2 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv1)
+conv3 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv2)
+conv4 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv3)
+conv5 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv4)
+conv6 = layers.Conv2D((r*r), 3, activation="sigmoid", padding="same")(conv5)
+# Efficient Subpixel Convolutional Layer
+outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
+model = Model(inputs=inputs, outputs=outputs)`
