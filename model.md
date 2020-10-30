@@ -7,7 +7,6 @@ This project is based on [Real-Time Single Image and Video Super-Resolution Usin
 
 ## Model
 In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
-In this project, convolutional layers are implemented sequentially using `tensorflow.keras.layers.Conv2D`.
 ### Input
 The model is trained using low resolution images from the DIV2K dataset that were downscaled with bicubic degradation. `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and HR image pairs for training and testing. Each LR image is directly fed to the network for feature extraction. 
 
