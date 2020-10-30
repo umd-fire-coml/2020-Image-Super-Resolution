@@ -60,11 +60,9 @@ outputs = tf.nn.depth_to_space(conv6, r)
 
 model = Model(inputs, outputs)
 ```
-The model is trained using low resolution images from the DIV2K dataset that were downscaled with bicubic degradation and an unknown downsampling method. `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and HR image pairs for training and testing. 
+`datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and HR image pairs. The model can be trained with x2, x3, and x4 LR images from the DIV2K dataset that were downscaled with bicubic degradation and an unknown  method. 
 
-The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`, which can be set to `2`, `3`, or `4` as long as the DataGenerator reflects this choice. `channels` is ![equation](https://latex.codecogs.com/gif.latex?C), the number of color channels that the input images have. 
-
-Our model has six feature map extraction layers that are implemented using `tensorflow.keras.layers.Conv2D`. `relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for its performance, but other nonlinearity functions, such as `tanh`, are also acceptable. 
+The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r` and should reflect the scale of the input provided by the data generator. `channels` is ![equation](https://latex.codecogs.com/gif.latex?C), the number of color channels that the input images, and consequently the output images, have. Our model uses six feature map extraction layers that are implemented through `tensorflow.keras.layers.Conv2D`. `relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for its performance, but other nonlinearity functions, such as `tanh`, are also acceptable. 
 
 There is no strict requirement regarding the number of filters and the kernel size for each `Conv2D`; through experimentation, the parameters can be tuned to optimize performance. For now, we set ![equation](https://latex.codecogs.com/gif.latex?(f_1,n_1)=(5,64)), ![equation](https://latex.codecogs.com/gif.latex?(f_2,n_2)=(3,64)), ![equation](https://latex.codecogs.com/gif.latex?(f_3,n_3)=(3,32)), ![equation](https://latex.codecogs.com/gif.latex?(f_4,n_4)=(3,32)), ![equation](https://latex.codecogs.com/gif.latex?(f_5,n_5)=(3,32)), and ![equation](https://latex.codecogs.com/gif.latex?(f_6,n_6)=(3,r^2)), where ![equation](https://latex.codecogs.com/gif.latex?f_l) is the `kernel_size` and ![equation](https://latex.codecogs.com/gif.latex?n_l) is the number of `filters` at layer ![equation](https://latex.codecogs.com/gif.latex?l).
 
