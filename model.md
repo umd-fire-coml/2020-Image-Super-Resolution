@@ -54,7 +54,7 @@ conv_args = {
 inputs = keras.Input(shape=(None, None, 1))
 # Feature Maps Extraction
 conv1 = layers.Conv2D(64, 5, **conv_args)(inputs)
-conv2 = layers.Conv2D(32, 3, **conv_args)(conv1)
+conv2 = layers.Conv2D(64, 3, **conv_args)(conv1)
 conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
 conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
 conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
