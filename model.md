@@ -43,6 +43,11 @@ Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffli
 ```
 # Upscale Factor
 r = 3
+# Arguments for Convolutional Layers
+args = {
+  "activation": "relu",
+  "padding" : "same",
+}
 
 # Input
 inputs = keras.Input(shape=(None, None, 1))
@@ -58,5 +63,6 @@ outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
 
 model = Model(inputs=inputs, outputs=outputs)
 ```
+The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 LR images that were downsampled using bicubic and unknown degradation, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice. `relu` is used as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) in all of the convolutions.
 
 We use `tf.nn.depth_to_space` with `block_size = r` on the feature maps to perform sub-pixel convolution in our implementation. 
