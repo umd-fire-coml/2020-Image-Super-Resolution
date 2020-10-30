@@ -10,7 +10,7 @@ In our architecture, a seven layer convolutional neural network is applied direc
 ### Input
 LR images are directly fed to the network for feature extraction. The LR input is mathematically represented by ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and the HR image that it was downscaled from is ![equation](https://latex.codecogs.com/gif.latex?I^{HR}). ![equation](https://latex.codecogs.com/gif.latex?r) is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and ![equation](https://latex.codecogs.com/gif.latex?I^{HR}) can be represented as real-valued tensors of size ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C) and ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C), respectively, where ![equation](https://latex.codecogs.com/gif.latex?H) is the height of the LR image, ![equation](https://latex.codecogs.com/gif.latex?W) is the width of the LR image, and ![equation](https://latex.codecogs.com/gif.latex?C) is the number of color channels. 
 ### Feature Maps Extraction
-The six convolutions are used to extract feature maps from the LR image and can be described as follows: 
+The six convolutional layers that are used to extract feature maps from the LR image can be described as follows: 
 
 ![equation](https://latex.codecogs.com/gif.latex?f^1(I^{LR};W_1,b_1)=\phi(W_1*I^{LR}+b_1))
 
