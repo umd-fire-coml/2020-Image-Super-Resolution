@@ -63,7 +63,7 @@ outputs = tf.nn.depth_to_space(conv6, r)
 
 model = Model(inputs, outputs)
 ```
-The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, and `4` as long as the DataGenerator reflects this choice. `channels` is ![equation](https://latex.codecogs.com/gif.latex?C), the number of color channels that the input images have. 
+The upscale factor ![equation](https://latex.codecogs.com/gif.latex?r) is represented by `r`. The DIV2K dataset contains X2, X3, and X4 downsampled LR images, so `r` can be set to `2`, `3`, or `4` as long as the DataGenerator reflects this choice. `channels` is ![equation](https://latex.codecogs.com/gif.latex?C), the number of color channels that the input images have. 
 
 Our model has six feature map extraction layers that are implemented using `tensorflow.keras.layers.Conv2D`. `relu` is chosen as the fixed activation function ![equation](https://latex.codecogs.com/gif.latex?\phi) for its performance, but other nonlinearity functions, such as `tanh`, are also acceptable. 
 
