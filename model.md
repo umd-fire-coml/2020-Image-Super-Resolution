@@ -36,6 +36,10 @@ Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffli
 ## Implementation
 The following is a Keras implementation of the seven-layer ESPCN model:
 ```
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers, Model
+
 # Upscale Factor
 r = 3
 # Color Channels
