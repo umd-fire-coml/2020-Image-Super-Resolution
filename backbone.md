@@ -42,7 +42,8 @@ Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffli
 We use `tf.nn.depth_to_space` with `block_size = r` on the feature maps to perform sub-pixel convolution in our implementation. 
 
 ## Implementation
-` #Upscale Factor
+```
+#Upscale Factor
 r = 3
 
 inputs = keras.Input(shape=(None, None, 1))
@@ -55,4 +56,5 @@ conv5 = layers.Conv2D(32, 3, activation="tanh", padding="same")(conv4)
 conv6 = layers.Conv2D((r*r), 3, activation="sigmoid", padding="same")(conv5)
 # Efficient Subpixel Convolutional Layer
 outputs = tf.nn.depth_to_space(conv3, r, data_format='NHWC')
-model = Model(inputs=inputs, outputs=outputs)`
+model = Model(inputs=inputs, outputs=outputs)
+```
