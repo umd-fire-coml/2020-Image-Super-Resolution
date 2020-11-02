@@ -48,7 +48,6 @@ class DataGenerator(keras.utils.Sequence):
             
         return LR, HR 
 
-        return X
 
 from PIL import Image
 import numpy as np
