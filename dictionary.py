@@ -106,4 +106,4 @@ def testing_dict():
                 # image name points to dictionary of scales
             images[image_name] = image_scales
         return images
-        # file_path = images[<image name>][<scale>]
+
