@@ -10,3 +10,4 @@ dependencies:
     - tensorflow=2.0
     - opencv
     - conda-forge::imgaug
+    - conda-forge::keras
