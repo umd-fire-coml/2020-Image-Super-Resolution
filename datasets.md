@@ -67,18 +67,18 @@ A [description](https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datase
 
 The following datasets are not required, but may be useful for further research.
 
-### [2K Resolution Dataset](https://drive.google.com/drive/folders/1B-uaxvV9qeuQ-t7MFiN1oEdA6dKnj2vW) 
+### 1. [2K Resolution Dataset](https://drive.google.com/drive/folders/1B-uaxvV9qeuQ-t7MFiN1oEdA6dKnj2vW) 
 
-### [Outdoor Scene Dataset](https://drive.google.com/drive/u/0/folders/1iZfzAxAwOpeutz27HC56_y5RNqnsPPKr)
+### 2. [Outdoor Scene Dataset](https://drive.google.com/drive/u/0/folders/1iZfzAxAwOpeutz27HC56_y5RNqnsPPKr)
 ~30,724 images.
 
-### [PRIM Dataset](https://drive.google.com/drive/folders/17FmdXu5t8wlKwt8extb_nQAdjxUOrb1O)
+### 3. [PRIM Dataset](https://drive.google.com/drive/folders/17FmdXu5t8wlKwt8extb_nQAdjxUOrb1O)
 400 images.
 
-### Flickr1024 Dataset
+### 4. Flickr1024 Dataset
 [Google Drive](https://drive.google.com/drive/folders/10LTXCSp9UqY9A9HVj3sAf7zmS4KdJo2T)
 
 [GitHub](https://yingqianwang.github.io/Flickr1024/)
 
-### [Multi-Sensor Datasets](https://www5.cs.fau.de/research/data/multi-sensor-super-resolution-datasets/)
+### 5. [Multi-Sensor Datasets](https://www5.cs.fau.de/research/data/multi-sensor-super-resolution-datasets/)
 The first dataset is an indoor scene with ~40 consecutive frames. The second dataset is 6 synthetic datasets, where each dataset consists of 40 frames.
