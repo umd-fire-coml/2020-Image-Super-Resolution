@@ -1,6 +1,6 @@
 # Datasets
 ## How to Download All Required Data
-1. Run 'python datadownloader.py' to download all required data, or follow the directions in DOWNLOAD REQUIRED DATASETS to manually assemble the required data.
+1. Run 'python datadownloader.py' to download all required data, or follow the directions in Manually Download Data to manually assemble the required data.
 
 2. Optional step: run 'python datachecker.py' to verify correct file structure. This is performed automatically by datadownloader.py.
 
@@ -77,6 +77,7 @@ The following datasets are not required, but may be useful for further research.
 
 ### Flickr1024 Dataset
 [Google Drive](https://drive.google.com/drive/folders/10LTXCSp9UqY9A9HVj3sAf7zmS4KdJo2T)
+
 [GitHub](https://yingqianwang.github.io/Flickr1024/)
 
 ### [Multi-Sensor Datasets](https://www5.cs.fau.de/research/data/multi-sensor-super-resolution-datasets/)
