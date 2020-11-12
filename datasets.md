@@ -1,5 +1,5 @@
 # Datasets
-## How to Download All Required Data
+## Directions
 1. Run 'python datadownloader.py' to download all required data, or follow the directions in Manually Download Data to manually assemble the required data.
 
 2. Optional step: run 'python datachecker.py' to verify correct file structure. This is performed automatically by datadownloader.py.
