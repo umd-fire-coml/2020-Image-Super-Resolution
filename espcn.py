@@ -2,7 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, Model
 
-# 6-layer ESPCN SISR model
+# 6-layer ESPCN SISR model. 
+# r = upscale factor, channels = number of color channels
 def espcn_model(r, channels = 3):
     # Arguments for Conv2D
     conv_args = {
