@@ -12,7 +12,6 @@ Download all .zip files, unzip them, and assemble the required file structure. R
 
 ### 1. [Classical SR Training](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU)
 Google Drive containing the datasets BSDS100, BSDS200, General100, historical, manga109, Set5, Set14, T91, and urban100.
-Link: 
 
 ### 2. [DIV2K Dataset](https://data.vision.ee.ethz.ch/cvl/DIV2K/)
 Download all links under "(NITRE 2017) Low Res Images" and "High Resolution Images" at the bottom of the page.
