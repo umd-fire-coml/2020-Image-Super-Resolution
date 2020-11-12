@@ -34,35 +34,32 @@ The sub-pixel convolution layer that converts the LR feature maps to a HR image,
 Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffling operator that rearranges the elements of a ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C%20%5Cdot%20r%5E2) tensor to a tensor of shape ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C). Therefore, the convolution operator ![equation](https://latex.codecogs.com/gif.latex?W_7) has shape ![equation](https://latex.codecogs.com/gif.latex?n_6%20%5Ctimes%20r%5E2C%20%5Ctimes%20k_7%20%5Ctimes%20k_7). We do not apply nonlinearity to the outputs of this layer because it produces a HR image from the LR feature maps directly with one upscaling filter for each future map. Periodic shuffling can be avoided in training time if the training data is shuffled to match the output of the layer before ![equation](https://latex.codecogs.com/gif.latex?PS).
 
 ## Implementation
-The following is a Keras implementation of the seven-layer ESPCN model:
+The following is `espcn.py`, a Keras implementation of the seven-layer ESPCN model:
 ```
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, Model
 
-# Upscale Factor
-r = 3
-# Color Channels
-channels = 1
-# Arguments for Conv2D
-conv_args = {
-  "activation": "relu",
-  "padding" : "same",
-}
-
-# Input
-inputs = keras.Input(shape=(None, None, channels))
-# Feature Maps Extraction
-conv1 = layers.Conv2D(64, 5, **conv_args)(inputs)
-conv2 = layers.Conv2D(64, 3, **conv_args)(conv1)
-conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
-conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
-conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
-conv6 = layers.Conv2D(channels*(r*r), 3, **conv_args)(conv5)
-# Efficient Sub-Pixel Convolutional Layer
-outputs = tf.nn.depth_to_space(conv6, r)
-
-model = Model(inputs, outputs)
+# 6-layer ESPCN SISR model. 
+# r = upscale factor, channels = number of color channels
+def espcn_model(r, channels = 3):
+    # Arguments for Conv2D
+    conv_args = {
+      "activation": "relu",
+      "padding" : "same",
+    }
+    # Input
+    inputs = keras.Input(shape=(None, None, channels))
+    # Feature Maps Extraction
+    conv1 = layers.Conv2D(64, 5, **conv_args)(inputs)
+    conv2 = layers.Conv2D(64, 3, **conv_args)(conv1)
+    conv3 = layers.Conv2D(32, 3, **conv_args)(conv2)
+    conv4 = layers.Conv2D(32, 3, **conv_args)(conv3)
+    conv5 = layers.Conv2D(32, 3, **conv_args)(conv4)
+    conv6 = layers.Conv2D(channels*(r*r), 3, **conv_args)(conv5)
+    # Efficient Sub-Pixel Convolutional Layer
+    outputs = tf.nn.depth_to_space(conv6, r)
+    return Model(inputs, outputs)
 ```
 `datagenerator.py` contains the `DataGenerator` class, which generates batches of LR and HR image pairs. The model can be trained with x2, x3, and x4 LR images from the DIV2K dataset that were downscaled with bicubic degradation and an unknown  method. 
 
