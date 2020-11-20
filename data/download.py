@@ -1,7 +1,9 @@
-import requests, os, zipfile, stat, re, datachecker
+import requests, os, zipfile, stat, re
+from checker import check
 
-data_directory = 'data'
+data_directory = 'datasets'
 
+# Google Drive File IDs
 # 'DatasetName' : 'File ID'
 classical_SR_datasets = {
     'BSDS100': '1EWEsfsgElkNvOcJwZLDe2TeDIMhr6SpH',
@@ -25,16 +27,12 @@ div2k_datasets = ['DIV2K_train_LR_bicubic_X2', 'DIV2K_train_LR_bicubic_X3', 'DIV
 # Downloads files from Google Drive.
 def download_google(id, destination):
     URL = 'https://docs.google.com/uc?export=download'
-
     session = requests.Session()
-
     response = session.get(URL, params = { 'id' : id }, stream = True)
     token = get_confirm_token(response)
-
     if token:
         params = { 'id' : id, 'confirm' : token }
         response = session.get(URL, params = params, stream = True)
-
     save_response_content(response, destination)
 
 # Gets token
@@ -42,13 +40,11 @@ def get_confirm_token(response):
     for key, value in response.cookies.items():
         if key.startswith('download_warning'):
             return value
-
     return None
 
-# Writes chunks
+# Writes chunks of downloaded data
 def save_response_content(response, destination):
     CHUNK_SIZE = 32768
-
     with open(destination, "wb") as f:
         for chunk in response.iter_content(CHUNK_SIZE):
             if chunk: # filter out keep-alive new chunks
@@ -61,12 +57,11 @@ def download_url(url, save_path, chunk_size=128):
         for chunk in r.iter_content(chunk_size=chunk_size):
             fd.write(chunk)
 
+# Download script            
 print('DATA DOWNLOADER')
-
 # Make data directory
 if not os.path.isdir(data_directory):
     os.mkdir(data_directory)
-
 # Download and unzip all classical SR datasets
 for dataset in classical_SR_datasets:
     dataset_directory = data_directory + '/' + dataset
@@ -87,12 +82,10 @@ for dataset in classical_SR_datasets:
         print("Deleting " + dataset + '.zip')
         os.remove(zip_path)
     print()
-
 # Make DIV2K directory
 div2k_directory = data_directory + '/' + 'DIV2K'
 if not os.path.isdir(div2k_directory):
     os.mkdir(div2k_directory)
-
 # Downloads and unzips DIV2K dataset
 for dataset in div2k_datasets:
     # Check if directory already exists
@@ -120,8 +113,7 @@ for dataset in div2k_datasets:
         print("Deleting " + dataset + '.zip')
         os.remove(zip_path)
     print()
-
 # Run datachecker.py with no success messages.
-print("Finished!\n\nRunning datachecker.py. Empty output means no errors.\nErrors:")
-datachecker.checker(verbose = 0)
+print("Finished!\n\nRunning check.py. Empty output means no errors.\nErrors:")
+check(verbose = 0)
 print('\nRun datascaler.m after fixing all errors.')

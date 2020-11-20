@@ -1,12 +1,16 @@
-# Single Image Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network Model Backbone
+# Model
+This directory contains the model, PSNR function, and any saved weights. Refer to **Design** for extensive documentation of our model, how we arrived at it, and how it is implemented. 
+### `weights/`
+Weights are saved here after the model is finished training. We pre-trained `r3bs10epochs100weights.h5` with scale factor 3 and batch size 10 over 100 epochs, which are the values in `training.ipynb`, and included it here for your convenience. These are also the weights that are loaded in `model.ipynb`.
+### `__init__.py`
+Marks this directory as the package `model`. Includes the model as the `espcn` function and the `psnr` function. 
+### `espcn.py`
+TensorFlow implementation of the model described in **Design**. Refer to the "Implementation" section.
+### `psnr.py`
+Peak Signal to Noise Ratio (PSNR) used for testing. Refer to **Peak Signal to Noise Ratio**.
+## Design
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
-
-Super-resolution (SR) is the recovery of a high resolution (HR) image or video from its low resolution (LR) counterpart. The Efficient Sub-Pixel Convolutional Neural Network (ESPCN) model is a machine learning Single Image Super-Resolution (SISR) model that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then uses a sub-pixel convolution layer to convert the LR feature maps into a HR image output. 
-
-This project is based on [Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network](https://arxiv.org/pdf/1609.05158.pdf). 
-
-## Model
-In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
+The Efficient Sub-Pixel Convolutional Neural Network (ESPCN) model is a machine learning Single Image Super-Resolution (SISR) model that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then uses a sub-pixel convolution layer to convert the LR feature maps into a HR image output. In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
 ### Input
 LR images are directly fed to the network for feature extraction. The LR input is mathematically represented by ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and the HR image that it was downscaled from is ![equation](https://latex.codecogs.com/gif.latex?I^{HR}). ![equation](https://latex.codecogs.com/gif.latex?r) is the factor by which the HR image was downsampled by to create the LR image; it is also referenced to as the upscale ratio because the model upscales the LR image to its original resolution. ![equation](https://latex.codecogs.com/gif.latex?I^{LR}) and ![equation](https://latex.codecogs.com/gif.latex?I^{HR}) can be represented as real-valued tensors of size ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C) and ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C), respectively, where ![equation](https://latex.codecogs.com/gif.latex?H) is the height of the LR image, ![equation](https://latex.codecogs.com/gif.latex?W) is the width of the LR image, and ![equation](https://latex.codecogs.com/gif.latex?C) is the number of color channels. 
 ### Feature Maps Extraction
@@ -33,7 +37,7 @@ The sub-pixel convolution layer that converts the LR feature maps to a HR image,
 
 Where ![equation](https://latex.codecogs.com/gif.latex?PS) is a periodic shuffling operator that rearranges the elements of a ![equation](https://latex.codecogs.com/gif.latex?H%20%5Ctimes%20W%20%5Ctimes%20C%20%5Cdot%20r%5E2) tensor to a tensor of shape ![equation](https://latex.codecogs.com/gif.latex?rH%20%5Ctimes%20rW%20%5Ctimes%20C). Therefore, the convolution operator ![equation](https://latex.codecogs.com/gif.latex?W_7) has shape ![equation](https://latex.codecogs.com/gif.latex?n_6%20%5Ctimes%20r%5E2C%20%5Ctimes%20k_7%20%5Ctimes%20k_7). We do not apply nonlinearity to the outputs of this layer because it produces a HR image from the LR feature maps directly with one upscaling filter for each future map. Periodic shuffling can be avoided in training time if the training data is shuffled to match the output of the layer before ![equation](https://latex.codecogs.com/gif.latex?PS).
 
-## Implementation
+### Implementation
 The following is `espcn.py`, a Keras implementation of the seven-layer ESPCN model:
 ```
 import tensorflow as tf
@@ -70,3 +74,6 @@ There is no strict requirement regarding the number of filters and the kernel si
 The sub-pixel convolution layer is implemented using `tf.nn.depth_to_space`. `depth_to_space` rearranges data from depth, collected by the convolutional layers during feature maps extraction, into blocks of spatial data, the output image ![equation](https://latex.codecogs.com/gif.latex?I^{SR}), as a tensor. The width of the output tensor is `input_depth * block_size` and the height is `input_height * block_size`, so `block_size` is set to `r` in order to upscale the input by the upscale ratio. 
 
 At the end, the model is compiled as a `keras.Model` that takes LR image tensors from `DataGenerator` as input, applies the ESPCN SISR model, then outputs HR image tensors. 
+## Peak Signal to Noise Ratio
+![example](https://i.imgur.com/ToXzT1w.png)
+The Peak Signal to Noise Ratio (PSNR) is the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. In this project, it is a representation of how similar two images are: the higher the value, the closer the distance. A PSNR of 0 indicates that two images are the absolute inverse and -1 is returned if the images are completely identical: while this is theoretically impossible, this feature was included to prevent division by 0. In `testing.py`, the average PSNR of images super-resolved by the untuned model described in **Design** is 24.08 dB, which is within the acceptable values for wireless transmission quality loss (20 to 25 dB). A more in-depth explanation can be found on [Wikipedia](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio).

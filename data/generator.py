@@ -3,11 +3,11 @@ from tensorflow import keras
 from tensorflow.python.keras.utils.data_utils import Sequence
 import numpy as np
 from sys import maxsize
-from dictionary import testing_dict, training_dict
+from data.dictionary import testing_dict, training_dict
 
 # Generates batches of LR and HR pairs
 class DataGenerator(Sequence):
-    #list_IDs is the images 
+    # Initialize object
     def __init__(self, scale, batch_size, dictionary = "train", shuffle=True):
         'Initialization'
         if dictionary == "test":
@@ -20,11 +20,13 @@ class DataGenerator(Sequence):
         self.batch_size = batch_size
         self.shuffle = shuffle
         self.on_epoch_end()
-
+    
+    # Returns number of batches
     def __len__(self):
         'denotes the number of batches per epoch'
         return int(np.floor(len(self.list_IDs) / self.batch_size))
-
+    
+    # Gets one batch of data of size self.batch_size
     def __getitem__(self, index):
         'Makes one batch of data'
         indexes = self.indexes[index*self.batch_size: (index+1)*self.batch_size] 
@@ -32,13 +34,15 @@ class DataGenerator(Sequence):
         # generate data
         X = self.__data_generation(list_IDs_temp)
         return X
-
+    
+    # Updates index after each epoch.
     def on_epoch_end(self):
         'Updates indexes after each epoch'
         self.indexes = np.arange(len(self.list_IDs))
         if self.shuffle == True:
             np.random.shuffle(self.indexes)
-
+    
+    # Generates one batch of data
     def __data_generation(self, list_IDs_temp):
         'Generates data containing batch_size samples' 
         LR = []
@@ -72,8 +76,8 @@ class DataGenerator(Sequence):
         HR = np.asarray(HR)    
         return LR, HR 
     
+    # Crops image around the center given minimum width and height
     def crop_center(self, img, min_width, min_height):        
-        'Crops image around the center given minimum width and height'
         width = img.shape[1]
         height = img.shape[0]
         # Calculates new boundaries around the center
@@ -84,7 +88,8 @@ class DataGenerator(Sequence):
         # Crop original image
         cropped_img = img[top:bottom, left:right, ...]
         return cropped_img
-
+    
+    # Crops image from top left corner given minimum width and height
     def crop_corner(self, img, min_width, min_height):        
         # Crops from top left corner
         cropped_img = img[0:min_height, 0:min_width, ...]
