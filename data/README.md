@@ -6,7 +6,7 @@ Follow the directions in **Assemble the Dataset**. All of the images used in thi
 Marks this directory as the package `data`. Includes the `DataGenerator` class.
 #### `augument.py`
 The class `DataAugmentor` can rotate, flip, and crop batches of images. It is currently unused. 
-#### `benchmarkgenerator.py`
+#### `benchmark.py`
 Measures the time that it takes for `DataGenerator` to generate batches of images. 
 #### `check.py`
 Checks if `datasets/` follows the file structure, which is defined in the section **Required File Structure**, required by `process.m`. Use `python check.py` for verbose output, or use `python check.py off` to only display errors. 
