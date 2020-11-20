@@ -5,10 +5,10 @@ Super-resolution (SR) is the recovery of a high resolution (HR) image or video f
 
 This project is based on [Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network](https://arxiv.org/pdf/1609.05158.pdf). 
 
-## Interactive Notebook
-[![Demonstration Video](https://i.imgur.com/My80T83.png)
+## Interactive Notebook and Demonstration Video
+[![Demonstration Video](https://i.imgur.com/My80T83.png)](https://www.youtube.com/watch?v=KnT1GiVU8O4)
 
-Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://drive.google.com/file/d/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR/view?usp=sharing) hosted on Google Colab. 
+Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://drive.google.com/file/d/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR/view?usp=sharing) hosted on Google Colab. Watch our YouTube video for a high-level demonstration of the project. 
 
 ## Training
 
