@@ -8,7 +8,7 @@ Machine learning super resolution uses a model trained with a dataset of images 
 Our model uses a series of convolutional layers to extract, or learn, information from the LR image. Then, it combines the data that it collected to create the SR image. In technical terms, this is a seven-layer Efficient Sub-Pixel Convolutional Neural Network that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then applies a sub-pixel convolution layer to assemble the LR feature maps into a HR image output. This project is written in TensorFlow and is based on [Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network](https://arxiv.org/pdf/1609.05158.pdf). 
 
 ## Interactive Notebook and Demonstration Video
-[![Demonstration Video](https://i.imgur.com/My80T83.png)](https://www.youtube.com/watch?v=KnT1GiVU8O4)
+[![Demonstration Video](https://i.imgur.com/My80T83.png)](https://i.imgur.com/SNKR8sb.png)
 
 Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://drive.google.com/file/d/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR/view?usp=sharing), hosted by Google Colab. Watch our demonstration video on YouTube for a high-level walkthrough and explanation of our project.
 ## Project Setup
