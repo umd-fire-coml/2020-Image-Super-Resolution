@@ -17,6 +17,7 @@ Contains the Keras `DataGenerator` class, which outputs batches of low resolutio
 ### process.m
 MATLAB script that uses bicubic degradation to downscale images and move them into the file structure used by `dictionary.py`. Must follow the file structure defined in **Required File Structure** to work properly. Only run this after verifying that `check.py` displays no errors.
 ## Assemble the Dataset
+The dataset used by the `DataGenerator` can be assembled by following either of the following sets of directions. 
 ### Directions (`download.py` Method)
 1. Run `python download.py` to download all required data. `check.py` is run at the end to verify that all datasets are complete. 
 2. If `python check.py off` displays no errors, then run 'process .m' in MATLAB to process the images into the required dataset. 
