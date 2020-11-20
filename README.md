@@ -1,4 +1,6 @@
+![banner](https://huahongtu.me/logo-banner-FIRE-COML.png)
 # Single Image Super-Resolution Using a Seven-Layer Efficient Sub-Pixel Convolutional Neural Network
+#### Joshua Lo (Peer Mentor), Justin Ashbaugh, Jared Habermehl, Allen Tu, Addison Waller
 Super-resolution is the process of recovering a high resolution (HR) image or video from its low resolution (LR) counterpart. It has a myriad of applications in many fields, including autonomous vehicles, medical imaging, security, and entertainment. 
 
 ![diagram](https://www.mathworks.com/help/examples/deeplearning_shared/win64/VeryDeepSuperResolutionDeepLearningExample_01.png)
