@@ -11,7 +11,7 @@ dataset  = {'BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'T91',
 degradation = 'bic'; % bic, BD, DN
 
 % File path, image file extensions, scales
-path_original = './data';
+path_original = './datasets';
 ext = {'*.jpg', '*.png', '*.bmp'};
 if strcmp(degradation, 'bic') 
     scale_all = [2,3,4];
@@ -19,31 +19,26 @@ else
     scale_all = [3,4];
 end
 
-% Move images from './data/historical/LR' to './data/historical/original'
-
-if exist('./data/historical/LR')
-    movefile('./data/historical/LR/*.png', './data/historical')
-    rmdir('./data/historical/LR/')
+% Move images from './datasets/historical/LR' to './datasets/historical/original'
+if exist('./datasets/historical/LR')
+    movefile('./datasets/historical/LR/*.png', './datasets/historical')
+    rmdir('./datasets/historical/LR/')
 end
-
 
 % Downscale all datasets
 for idx_set = 1:length(dataset)
     fprintf('Processing %s:\n', dataset{idx_set});
-    
     folder_dataset = fullfile(path_original, dataset{idx_set});
     folder_original = fullfile(folder_dataset, 'original');
-    % Create './data/<dataset>/original' directory
+    % Create './datasets/<dataset>/original' directory
     if ~exist(folder_original)
         mkdir(folder_original)
-        % Move all images to './data/<dataset>/original'
+        % Move all images to './datasets/<dataset>/original'
         movefile(fullfile(folder_dataset,'*.png'), folder_original)
     end
-    
-    
     for scale = scale_all
         folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
-        % Create './data/<dataset>/LR<degradation>x<scale>/'
+        % Create './datasets/<dataset>/LR<degradation>x<scale>/'
         if ~exist(folder_LR)
                 mkdir(folder_LR)
         % Delete obsolete images if they exist.
@@ -52,9 +47,6 @@ for idx_set = 1:length(dataset)
             delete(fullfile(folder_LR,'*'))
         end
     end
-        
-    
-    
     % Create list of all of the filepaths of the original images
     filepaths = [];
     for idx_ext = 1:length(ext)
@@ -82,8 +74,7 @@ for idx_set = 1:length(dataset)
             elseif strcmp(degradation, 'DN')
                 randn('seed',0); % For test data, fix seed. But, DON'T fix seed, when preparing training data.
                 im_LR = imresize_DN(im_HR, scale, 30); % noise level sigma=30
-            end
-                 
+            end     
             % Write scaled image to directory.
             folder_LR = fullfile(folder_dataset, ['LR', degradation, 'x', num2str(scale)]);
             fn_LR = fullfile(folder_LR, [name_im(1:end-4), '.png']);
@@ -115,7 +106,6 @@ function [LR] = imresize_BD(im, scale, type, sigma)
 if nargin ==3 && strcmp(type,'Gaussian')
     sigma = 1.6;
 end
-
 if strcmp(type,'Gaussian') && fix(scale) == scale
     if mod(scale,2)==1
         kernelsize = ceil(sigma*3)*2+1;
