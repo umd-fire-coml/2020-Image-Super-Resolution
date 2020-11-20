@@ -31,8 +31,3 @@ if __name__ == "__main__":
         train(model, r, batch_size, epochs)
     else:
         print("Correct usage: python training.py [upscale_factor] [batch_size] [epochs]")
-    
-    
-    
-    
-    
