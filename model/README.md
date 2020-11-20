@@ -1,5 +1,7 @@
 # Model
 This directory contains the model, PSNR function, and any saved weights. Refer to **Design** for extensive documentation of our model, how we arrived at it, and how it is implemented. 
+### `weights/`
+Weights are saved here after the model is finished training. We pre-trained `r3bs10epochs100weights.h5` with scale factor 3 and batch size 10 over 100 epochs, which are the values in `training.ipynb`, and included it here for your convenience. These are also the weights that are loaded in `model.ipynb`.
 ### `__init__.py`
 Marks this directory as the package `model`. Includes the model as the `espcn` function and the `psnr` function. 
 ### `espcn.py`
