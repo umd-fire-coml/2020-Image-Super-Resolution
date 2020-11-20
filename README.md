@@ -3,7 +3,7 @@
 ### Joshua Lo (Peer Mentor), Justin Ashbaugh, Jared Habermehl, Allen Tu, Addison Waller
 Super-resolution is the process of recovering a high resolution (HR) image or video from its low resolution (LR) counterpart. It has a myriad of applications in many fields, including autonomous vehicles, medical imaging, security, and entertainment. 
 
-![diagram](https://www.mathworks.com/help/examples/deeplearning_shared/win64/VeryDeepSuperResolutionDeepLearningExample_01.png)
+![diagram](https://www.mathworks.com/help/examples/deeplearning_shared/win64/VeryDeepSuperResolutionDeepLearningExample_01.png =250x)
 
 Machine learning super resolution uses a model trained with a dataset of images to predict additional pixels from a LR image input, essentially "filling in" the gaps in between the pixels of a LR image to create a HR output. We refer to a recovered HR image as a super-resolved (SR) image. A SR image has more pixels than the LR image that it was created from, so it contains more information and will be appear clearer due to its higher pixel density.
 
