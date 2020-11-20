@@ -1,5 +1,5 @@
 # Data
-This directory contains all of the datasets, the scripts to download and process them, and the Keras data generator. Refer to the directions in **Assemble the Dataset** to assemble the dataset used by the `DataGenerator`.
+This directory contains all of the datasets, the scripts to download and process them, and the Keras data generator. Refer to the directions in **Assemble the Dataset**.
 ### __init__.py
 Marks this directory as the package `data`. Includes the `DataGenerator` class.
 ### augument.py
