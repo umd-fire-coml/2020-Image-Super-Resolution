@@ -1,20 +1,20 @@
 # Data
 This directory contains all of the datasets, the scripts to download and process them, and the Keras data generator. Refer to the directions in **Assemble the Dataset**.
-### `__init__.py`
+#### `__init__.py`
 Marks this directory as the package `data`. Includes the `DataGenerator` class.
-### `augument.py`
+#### `augument.py`
 The class `DataAugmentor` can rotate, flip, and crop batches of images. It is currently unused. 
 ### `benchmarkgenerator.py`
 Measures the time that it takes for `DataGenerator` to generate batches of images. 
-### `check.py`
+#### `check.py`
 Checks if `datasets/` follows the file structure, which is defined in the section **Required File Structure**, required by `process.m`. Use `python check.py` for verbose output, or use `python check.py off` to only display errors. 
-### `dictionary.py`
+#### `dictionary.py`
 Contains `training_dict()`, which returns a dictionary of all of the filepaths in the DIV2K dataset, and `testing_dict()`, which returns a dictionary of all of the filepaths in the Classical SR dataset, to be used by the `DataGenerator`. The dictionary is formatted as `{image_name:{scale:filepath}}`. Important note: This file is designed to be run from the main directory. If running from this directory, remove the `'data/'` prefix `main_dir` and `data_directory`.
-### `download.py`
+#### `download.py`
 Follow the directions in **Assemble the Dataset**. Downloads the Classical SR and DIV2K datasets, unzips them, and assembles the required data structure. 
-### `generator.py`
+#### `generator.py`
 Contains the Keras `DataGenerator` class, which outputs batches of low resolution and high resolution images. It is used for all training and testing in this project and can be initialized as an object through `DataGenerator(scale, batch_size, dictionary = "train", shuffle = True).` Important note: this file uses `training.py` to find images. 
-### `process.m`
+#### `process.m`
 MATLAB script that uses bicubic degradation to downscale images and move them into the file structure used by `dictionary.py`. Must follow the file structure defined in **Required File Structure** to work properly. Only run this after verifying that `check.py` displays no errors.
 ## Assemble the Dataset
 The dataset used by the `DataGenerator` can be assembled by following either of the following sets of directions. 
