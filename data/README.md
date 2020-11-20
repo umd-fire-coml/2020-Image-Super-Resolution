@@ -1,5 +1,5 @@
 # Data
-This directory contains all of the datasets, the scripts to download and process them, and the Keras data generator. Refer to the directions in **Assemble the Dataset**.
+This directory contains the datasets, the scripts to download and process them, and the Keras data generator. Refer to the directions in **Assemble the Dataset**.
 #### `datasets/`
 Follow the directions in **Assemble the Dataset**. All of the images used in this project are stored here.
 #### `__init__.py`
@@ -25,7 +25,7 @@ The dataset used by the `DataGenerator` can be assembled by following either of 
 2. If `python check.py off` displays no errors, then run 'process .m' in MATLAB to process the images into the required dataset. 
 ### Directions (Manual Method)
 1. Create a directory named `datasets/` in this folder (filepath `data/datasets/`).
-2. Download all of the .zip files in the [Classical SR Google Drive](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU). Unzip them and place their contents in `datasets/`. 
+2. Download all .zip files in the [Classical SR Google Drive](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU). Unzip them and place their contents in `datasets/`. 
 3. Create a directory named `DIV2K/` in `datasets/` (filepath `data/datasets/DIV2K/`). Download the all of the .zip files under "(NITRE 2017) Low Res Images" and "High Resolution Images" sections of the [DIV2K Dataset website](https://data.vision.ee.ethz.ch/cvl/DIV2K/). Unzip all of them inside of `DIV2K/`. 
 4. Run `python check.py off`. If no errors are displayed, , then run `process .m` in MATLAB to process the images into the required dataset. 
 ## Dataset Information
