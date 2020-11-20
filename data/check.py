@@ -106,10 +106,13 @@ def check(verbose):
     # Check if urban100 is a complete dataset. 
     directory_checker('urban100', 100, verbose)   
     
+# python check.py
+# python check.py off
 if __name__ == "__main__":    
     print('DATA CHECKER')
     # All messages are shown by default. Success messages can be turned off to make failures easier to read. 
     verbose = 1
+    # Non-verbose if argv[1] = off 
     if len(sys.argv) == 2:
         if sys.argv[1] == 'off':
             verbose = 0

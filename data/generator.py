@@ -3,7 +3,7 @@ from tensorflow import keras
 from tensorflow.python.keras.utils.data_utils import Sequence
 import numpy as np
 from sys import maxsize
-from dictionary import testing_dict, training_dict
+from data.dictionary import testing_dict, training_dict
 
 # Generates batches of LR and HR pairs
 class DataGenerator(Sequence):

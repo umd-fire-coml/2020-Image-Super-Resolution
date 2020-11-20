@@ -1,8 +1,14 @@
+############################ NOTE ############################
+# This file is designed to be run from the main directory.   #
+# If running from this directory, remove the 'data/' prefix  #
+# from main_dir and data_directory.                          #
+##############################################################
+
 import os 
 
 # Returns a dictionary containing all DIV2K filepaths
 def training_dict():
-    main_dir = 'datasets/DIV2K'
+    main_dir = 'data/datasets/DIV2K'
     Kscale = ['LRbicx2', 'LRbicx3', 'LRbicx4']
     Uscale = ['LRunkx2', 'LRunkx3', 'LRunkx4']
     train_names = os.listdir(main_dir + '/' + 'DIV2K_train_HR')
@@ -86,7 +92,7 @@ def training_dict():
 
 # Returns a dictionary containing all Classical SR filepaths
 def testing_dict():
-    data_directory = 'datasets/'
+    data_directory = 'data/datasets/'
     datasets = ['BSDS100', 'BSDS200', 'General100', 'historical', 'manga109', 'Set5', 'Set14', 'T91', 'urban100']
     scales = ['LRbicx2', 'LRbicx3', 'LRbicx4']
     # key = image name without directory path
