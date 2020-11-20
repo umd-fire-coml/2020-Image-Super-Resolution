@@ -45,4 +45,4 @@ if __name__ == "__main__":
         verbose = sys.argv[3]
         benchmark(weights_filename, upscale_factor, verbose)
     else:
-        print ('Correct usage: python benchmark.py [weights_filename] [upscale_factor] [off (optional)]')
+        print ('Correct usage: python testing.py [weights_filename] [upscale_factor] [off (optional)]')
