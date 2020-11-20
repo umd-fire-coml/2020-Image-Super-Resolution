@@ -1,14 +1,13 @@
 ## Assembling the Dataset
 ### Directions (Script Method)
-1. Run 'python download.py' to download all required data. 'check.py' is run at the end to verify that all datasets are complete. 
-2. If 'python check.py off' displays no errors, then run 'scale.m' in MATLAB to process the dataset. 
+1. Run `python download.py` to download all required data. `check.py` is run at the end to verify that all datasets are complete. 
+2. If `python check.py off` displays no errors, then run 'process .m' in MATLAB to process the images into the required dataset. 
 
 ### Directions (Manual Method)
-Download all .zip files, unzip them, and assemble the required file structure. Run 'python.datachecker.py' to verify that the data is complete and correct.
-1. [Classical SR Training](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU)
-Google Drive containing the datasets BSDS100, BSDS200, General100, historical, manga109, Set5, Set14, T91, and urban100.
-2. [DIV2K Dataset](https://data.vision.ee.ethz.ch/cvl/DIV2K/)
-Download all links under "(NITRE 2017) Low Res Images" and "High Resolution Images" at the bottom of the page.
+1. Make a directory named `datasets` in this folder (filepath `data/datasets`).
+2. Download all of the .zip files in the [Classical SR Google Drive](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU). Unzip all of them inside of `datasets`. 
+3. Create a directory named `DIV2K` in `datasets` (filepath `data/datasets/DIV2K`). Download the all of the .zip files under "(NITRE 2017) Low Res Images" and "High Resolution Images" sections of the [DIV2K Dataset website](https://data.vision.ee.ethz.ch/cvl/DIV2K/). Unzip all of them inside of `DIV2K`. 
+4. Run `python check.py off`. If no errors are displayed, , then run 'process .m' in MATLAB to process the images into the required dataset. 
 
 
 ## Required File Structure
@@ -59,6 +58,8 @@ data/
 A [description](https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets) of all of the required datasets and some of the supplementary datasets.
 
 The following datasets are not required, but may be useful for further research.
+
+Classical SR [Google Drive](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU) Google Drive containing the datasets BSDS100, BSDS200, General100, historical, manga109, Set5, Set14, T91, and urban100.
 
 #### 1. [2K Resolution Dataset](https://drive.google.com/drive/folders/1B-uaxvV9qeuQ-t7MFiN1oEdA6dKnj2vW) 
 
