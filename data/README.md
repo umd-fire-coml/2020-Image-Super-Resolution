@@ -1,13 +1,9 @@
-# Datasets
-## Directions
-1. Run 'python datadownloader.py' to download all required data, or follow the directions in Manually Download Data to manually assemble the required data.
+# Assembling the Dataset
+## Directions (Script Method)
+1. Run 'python download.py' to download all required data. 'check.py' is run at the end to verify that all datasets are complete. 
+2. If 'python check.py off' displays no errors, then run 'scale.m' in MATLAB to process the dataset. 
 
-2. Optional step: run 'python datachecker.py' to verify correct file structure. This is performed automatically by datadownloader.py.
-
-3. Run datascaler.m in MATLAB to generate scaled versions of all of the images.
-
-
-## Manually Download Data
+## Directions (Manual Method)
 Download all .zip files, unzip them, and assemble the required file structure. Run 'python.datachecker.py' to verify that the data is complete and correct.
 
 #### 1. [Classical SR Training](https://drive.google.com/drive/folders/1pRmhEmmY-tPF7uH8DuVthfHoApZWJ1QU)
