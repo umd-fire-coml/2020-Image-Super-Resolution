@@ -1,5 +1,11 @@
 # Model
 This directory contains the model, PSNR function, and any saved weights. Refer to **Design** for extensive documentation of our model, how we arrived at it, and how it is implemented. 
+### `__init__.py`
+Marks this directory as the package `model`. Includes the model as the `espcn` function and the `psnr` function. 
+### `espcn.py`
+TensorFlow implementation of the model described in **Design**. Refer to the "Implementation" section.
+### `psnr.py`
+Peak Signal to Noise Ratio (PSNR) used for testing. Refer to **Peak Signal to Noise Ratio**.
 ## Design
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
 In our architecture, a seven layer convolutional neural network is applied directly to the LR image to produce the SR image. The first six layers extract feature maps from the LR image and the seventh is a sub-pixel convolution layer that upscales the LR feature maps to produce a HR image, ![equation](https://latex.codecogs.com/gif.latex?I^{SR}). 
@@ -67,4 +73,5 @@ The sub-pixel convolution layer is implemented using `tf.nn.depth_to_space`. `de
 
 At the end, the model is compiled as a `keras.Model` that takes LR image tensors from `DataGenerator` as input, applies the ESPCN SISR model, then outputs HR image tensors. 
 ## Peak Signal to Noise Ratio
-The Peak Signal to Noise Ratio (PSNR) is the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. In this project, it is a representation of how similar two images are: the higher the value, the closer the distance. A PSNR of 0 indicates that two images are the absolute inverse and -1 is returned if the images are completely identical: while this is theoretically impossible, this feature was included to prevent division by 0. In `testing.py`, the average PSNR of images super-resolved by the untuned model described in **Design** is 24.08 dB, which is within the acceptable values for wireless transmission quality loss (20 to 25 dB). 
+![example](https://i.imgur.com/ToXzT1w.png)
+The Peak Signal to Noise Ratio (PSNR) is the ratio between the maximum possible power of a signal and the power of corrupting noise that affects the fidelity of its representation. In this project, it is a representation of how similar two images are: the higher the value, the closer the distance. A PSNR of 0 indicates that two images are the absolute inverse and -1 is returned if the images are completely identical: while this is theoretically impossible, this feature was included to prevent division by 0. In `testing.py`, the average PSNR of images super-resolved by the untuned model described in **Design** is 24.08 dB, which is within the acceptable values for wireless transmission quality loss (20 to 25 dB). A more in-depth explanation can be found on [Wikipedia](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio).
