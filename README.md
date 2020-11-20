@@ -12,7 +12,7 @@ Our model uses a series of convolutional layers to extract, or learn, informatio
 ## Interactive Notebook and Demonstration Video
 [![Demonstration Video](https://i.imgur.com/My80T83.png)](https://i.imgur.com/SNKR8sb.png)
 
-Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://drive.google.com/file/d/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR/view?usp=sharing), hosted by Google Colab. Watch our demonstration video on YouTube for a high-level walkthrough and explanation of our project.
+Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://drive.google.com/file/d/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR/view?usp=sharing), hosted on Google Colab. Watch our demonstration video on YouTube for a high-level walkthrough.
 ## Project Setup
 1. Clone this repository.
 2. Run `conda env create -f environment.yml` from this directory to create the project environment. Activate it using `conda activate image-super-resolution`.
