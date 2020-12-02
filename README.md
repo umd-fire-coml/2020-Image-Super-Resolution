@@ -20,6 +20,8 @@ Learn about this project and use a trained model without any setup by visiting o
 4. Refer to **Training** and **Testing** to train and test the model.
 ### Environment
 The following packages are required to use this project: `python=3.6`, `scipy`, `tqdm`, `matplotlib`, `jupyterlab`, `scikit-image`, `pillow=6.1`, `tensorflow=2.0`, `opnecv,` `conda-forge::imgaug`.
+### [`data/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/data)
+This directory contains the datasets, the scripts to download and process them, and the Keras data generator. Its README contains extensive documentation and instructions for assembling the required datasets. 
 ## Model
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
 The Efficient Sub-Pixel Convolutional Neural Network (ESPCN) model is a machine learning Single Image Super-Resolution (SISR) model that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then uses a sub-pixel convolution layer to convert the LR feature maps into a HR image output. Refer to [`model/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/model) for documentation of our model and the Peak Signal to Noise Ratio (PSNR) function.
