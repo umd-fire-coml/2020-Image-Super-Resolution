@@ -1,7 +1,7 @@
 ![banner](https://huahongtu.me/logo-banner-FIRE-COML.png)
 # Single Image Super-Resolution Using a Seven-Layer Efficient Sub-Pixel Convolutional Neural Network
 ### Joshua Lo (Peer Mentor), Justin Ashbaugh, Jared Habermehl, Allen Tu, Addison Waller
-Super-resolution is the process of recovering a high resolution (HR) image or video from its low resolution (LR) counterpart. It has a myriad of applications in many fields, including autonomous vehicles, medical imaging, security, and entertainment. 
+[Super-resolution](https://en.wikipedia.org/wiki/Super-resolution_imaging) is the process of recovering a high resolution (HR) image or video from its low resolution (LR) counterpart. It has a myriad of applications in many fields, including autonomous vehicles, medical imaging, security, and entertainment. 
 
 ![diagram](https://www.mathworks.com/help/examples/deeplearning_shared/win64/VeryDeepSuperResolutionDeepLearningExample_01.png)
 
@@ -57,3 +57,4 @@ Improvements to the program would lead to even clearer SR images with higher PSN
 1. W. Shi et al., "Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network," 2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Las Vegas, NV, 2016, pp. 1874-1883, doi: 10.1109/CVPR.2016.207. Available: https://ieeexplore.ieee.org/document/7780576.
 2. “Common Datasets for Image Super-Resolution,” CV Notes, 22-Sep-2019. [Online]. Available: https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets. 
 3. “Peak signal-to-noise ratio,” Wikipedia, 26-Nov-2020. [Online]. Available: https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio. 
+4. “Super-resolution imaging,” Wikipedia, 02-Dec-2020. [Online]. Available: https://en.wikipedia.org/wiki/Super-resolution_imaging. [Accessed: 02-Dec-2020]. 
