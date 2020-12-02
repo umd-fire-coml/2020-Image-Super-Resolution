@@ -25,7 +25,7 @@ This directory contains the datasets, the scripts to download and process them, 
 ## Model
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
 The Efficient Sub-Pixel Convolutional Neural Network (ESPCN) model is a machine learning Single Image Super-Resolution (SISR) model that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then uses a sub-pixel convolution layer to convert the LR feature maps into a HR image output. Refer to [`model/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/model) for documentation of our model and the Peak Signal to Noise Ratio (PSNR) function.
-###
+### [`model/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/model)
 This directory contains the model, PSNR function, and any saved weights. Its README contains extensive documentation. 
 ## Training
 #### `training.py`
