@@ -15,9 +15,11 @@ Our model uses a series of convolutional layers to extract, or learn, informatio
 Learn about this project and use a trained model without any setup by visiting our [Interactive Notebook](https://colab.research.google.com/drive/1d-1gZsZnIza1KMHSWT0G3tiDAHePZyUR), hosted on Google Colab. Watch our demonstration video on YouTube for a high-level walkthrough.
 ## Project Setup
 1. Clone this repository.
-2. Run `conda env create -f environment.yml` from this directory to create the project environment. Activate it using `conda activate image-super-resolution`.
+2. Run `conda env create -f environment.yml` from this directory to create the project environment. Activate it using `conda activate image-super-resolution`. Refer to **Environment** for a list of required packages.
 3. Follow the directions in [`data/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/data) to assemble the dataset.
 4. Refer to **Training** and **Testing** to train and test the model.
+### Environment
+The following packages are required to use this project: `python=3.6`, `scipy`, `tqdm`, `matplotlib`, `jupyterlab`, `scikit-image`, `pillow=6.1`, `tensorflow=2.0`, `opnecv,` `conda-forge::imgaug`. Run `conda env create -f environment.yml` in Anaconda from this directory to create the environment with all of the required packages, then use `conda activate image-super-resolution`to activate it. 
 ## Model
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
 The Efficient Sub-Pixel Convolutional Neural Network (ESPCN) model is a machine learning Single Image Super-Resolution (SISR) model that takes a LR image input, extracts LR feature maps through a series of convolutional layers, then uses a sub-pixel convolution layer to convert the LR feature maps into a HR image output. Refer to [`model/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/respository_organization/model) for documentation of our model and the Peak Signal to Noise Ratio (PSNR) function.
