@@ -53,3 +53,7 @@ The results are decent, but it is visibly apparent that the SR image is not quit
 * Fine tune the convolutional layers in `espcn_model` through experimentation to more effectively capture information from the LR images in the training dataset. Since we chose the parameters for `Conv2D` as estimates, this is our most promising next step. 
 
 Improvements to the program would lead to even clearer SR images with higher PSNR scores.
+## References
+1. W. Shi et al., "Real-Time Single Image and Video Super-Resolution Using an Efficient Sub-Pixel Convolutional Neural Network," 2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Las Vegas, NV, 2016, pp. 1874-1883, doi: 10.1109/CVPR.2016.207.
+2. “Common Datasets for Image Super-Resolution,” CV Notes, 22-Sep-2019. [Online]. Available: https://cvnote.ddlee.cn/2019/09/22/image-super-resolution-datasets. [Accessed: 02-Dec-2020]. 
+3. “Peak signal-to-noise ratio,” Wikipedia, 26-Nov-2020. [Online]. Available: https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio. [Accessed: 02-Dec-2020]. 
