@@ -1,5 +1,5 @@
 #datasets
-data/
+data/datasets
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -82,7 +82,6 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-atutest.ipynb
 
 # IPython
 profile_default/
