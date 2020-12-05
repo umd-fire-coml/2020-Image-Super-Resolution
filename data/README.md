@@ -17,11 +17,11 @@ Follow the directions in **Assemble the Dataset**. Downloads the Classical SR an
 #### [`generator.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/generator.py)
 Contains the Keras `DataGenerator` class, which outputs batches of low resolution and high resolution images. It is used for all training and testing in this project and can be initialized as an object through `DataGenerator(scale, batch_size, dictionary = "train", shuffle = True).` Important note: this file uses [`dictionary.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/dictionary.py) to find images. 
 #### [`process.m`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/process.m)
-MATLAB script that uses bicubic degradation to downscale images and move them into the file structure used by `dictionary.py`. Must follow the file structure defined in **Required File Structure** to work properly. Only run this after verifying that [`check.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/check.py) displays no errors.
+MATLAB script that uses bicubic degradation to downscale images and move them into the file structure used by [`dictionary.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/dictionary.py). Must follow the file structure defined in **Required File Structure** to work properly. Only run this after verifying that [`check.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/check.py) displays no errors.
 ## Assemble the Dataset
 The dataset used by the `DataGenerator` can be assembled by following either of the following sets of directions. 
 ### Directions ([`download.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/download.py) Method)
-1. Run `python download.py` to download all required data. `check.py` is run at the end to verify that all datasets are complete. 
+1. Run `python download.py` to download all required data. [`check.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/check.py) is run at the end to verify that all datasets are complete. 
 2. If `python check.py off` displays no errors, then run [`process .m`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/data/process.m) in MATLAB to process the images into the required dataset. 
 ### Directions (Manual Method)
 1. Create a directory named `datasets/` in this folder (filepath `data/datasets/`).
