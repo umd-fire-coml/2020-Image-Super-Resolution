@@ -1,12 +1,12 @@
 # Model
 This directory contains the model, PSNR function, and any saved weights. Refer to **Design** for extensive documentation of our model, how we arrived at it, and how it is implemented. 
-### `weights/`
-Weights are saved here after the model is finished training. We pre-trained `r3bs10epochs100weights.h5` with scale factor 3 and batch size 10 over 100 epochs, which are the values in `training.ipynb`, and included it here for your convenience. These are also the weights that are loaded in `model.ipynb`.
-### `__init__.py`
+### [`weights/`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/tree/master/model/weights)
+Weights are saved here after the model is finished training. We pre-trained [`r3bs10epochs100weights.h5`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/model/weights/r3bs10epochs100weights.h5) with scale factor 3 and batch size 10 over 100 epochs, which are the values in [`training.ipynb`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/training.ipynb), and included it here for your convenience. These are also the weights that are loaded by default in `testing.ipynb`.
+### [`__init__.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/model/__init__.py)
 Marks this directory as the package `model`. Includes the model as the `espcn` function and the `psnr` function. 
-### `espcn.py`
+### [`espcn.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/model/espcn.py)
 TensorFlow implementation of the model described in **Design**. Refer to the "Implementation" section.
-### `psnr.py`
+### [`psnr.py`](https://github.com/umd-fire-coml/2020-Image-Super-Resolution/blob/master/model/psnr.py)
 Peak Signal to Noise Ratio (PSNR) used for testing. Refer to **Peak Signal to Noise Ratio**.
 ## Design
 ![architecture](https://miro.medium.com/max/4902/1*n4cXo7DASn1_HEGrDNJVFg.png)
